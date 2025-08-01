@@ -5,11 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Frontend (Vue.js + Vite)
-- `npm run dev` - Start the Vite development server with HTTPS on localhost
-- `npm run prod` or `vite build` - Build production assets
-- `npm test` or `vitest` - Run frontend tests
-- `npm run test:ui` - Run tests with UI interface
-- `npm run test:run` - Run tests once
+- `bun run dev` - Start the Vite development server with HTTPS on localhost
+- `bun run prod` or `vite build` - Build production assets
+- `bun test` or `vitest` - Run frontend tests
+- `bun run test:ui` - Run tests with UI interface
+- `bun run test:run` - Run tests once
 
 ### Backend (Laravel + PHP)
 - `php artisan serve` - Start Laravel development server
