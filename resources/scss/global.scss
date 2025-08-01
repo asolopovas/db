@@ -1,0 +1,97 @@
+// ---------------------------------------------------
+// General
+// ---------------------------------------------------
+* {
+    outline: none;
+}
+
+body {
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+
+.show {
+    display: block;
+}
+
+table.stack {
+    tfoot {
+        display: table-footer-group;
+    }
+}
+
+.border {
+    border: 1px solid #ccc;
+}
+
+.status-bar {
+    min-height: 42px;
+    margin: 0 0 10px 0;
+    background-color: #f2d68f;
+}
+
+select {
+    text-indent: 1px;
+}
+
+table {
+    margin-bottom: 0;
+}
+
+.table-wrap {
+    margin-bottom: 20px;
+
+    .table-bg {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    table {
+        tfoot {
+            border: none;
+        }
+    }
+}
+
+[type='text'],
+[type='password'],
+[type='date'],
+[type='datetime'],
+[type='datetime-local'],
+[type='month'],
+[type='week'],
+[type='email'],
+[type='number'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='url'],
+[type='color'],
+textarea,
+select {
+    &[disabled] {
+        cursor: default;
+    }
+}
+
+.wrap {
+    background: #fff;
+
+    &:focus {
+        outline: none
+    }
+}
+
+.highlight {
+    background-color: #c0c0c0;
+}
+
+a {
+    color: inherit;
+}
+
+
+.add-button {
+    width: 80px;
+    height: 42px;
+}

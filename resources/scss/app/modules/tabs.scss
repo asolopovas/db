@@ -1,0 +1,8 @@
+.tabs {
+  .tabs-title {
+    user-select: none;
+  }
+}
+.is-active {
+  background-color: $tab-background-active;
+}
