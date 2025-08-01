@@ -40,7 +40,7 @@ class OrderMail extends Mailable
         $subject = $this->orderData['status'] ?? 'Order Mail';
 
         return new Envelope(
-            from: new Address('info@woodlandflooring.co.uk', 'Woodland Flooring'),
+            from: new Address('info@3oak.co.uk', '3 Oak'),
             subject: $subject
         );
     }

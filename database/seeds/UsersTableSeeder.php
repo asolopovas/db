@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
             'username'   => 'bfoster',
             'phone'      => '0208 840 8031',
             'mobile'     => '0754 049 2060',
-            'email'      => 'info@woodlandflooring.co.uk',
+            'email'      => 'info@3oak.co.uk',
             'role_id'    => 2,
             'password'   => bcrypt('2hgPi#H5TUNy35qM'),
             'created_at' => Carbon::now(),

@@ -31,7 +31,7 @@ class OrdersWithTaxDeductionsMail extends Mailable implements ShouldQueue
   public function build()
   {
     $markdown = $this->markdown('emails.internal-email', ['message' => $this->message]);
-    $markdown->from('info@woodlandflooring.co.uk', '3 Oak DB');
+    $markdown->from('info@3oak.co.uk', '3 Oak DB');
     $markdown->subject('3 Oak Tax Deducted Orders');
 
     $markdown->attachFromStorage('zip/orders.zip');

@@ -46,7 +46,7 @@ trait MailerSetup
         $emails = [
             'to'  => $customer->email1,
             'cc'  => array_filter(merge($data['cc'], $customer->email2, $customer->email3)),
-            'bcc' => ['info@woodlandflooring.co.uk'],
+            'bcc' => ['info@3oak.co.uk'],
         ];
 
         foreach ($emails as $location => $value) {
@@ -81,7 +81,7 @@ trait MailerSetup
     public function internalMailer(): PendingMail
     {
         if (env('APP_ENV') === 'production') {
-            $mailer = Mail::to('info@woodlandflooring.co.uk');
+            $mailer = Mail::to('info@3oak.co.uk');
         } else {
             $mailer = Mail::to('info@mail.dev');
         }

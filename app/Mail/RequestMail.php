@@ -40,7 +40,7 @@ class RequestMail extends Mailable
             'user' => $this->order['user']
         ]);
 
-        $markdown->from('info@woodlandflooring.co.uk', '3 Oak');
+        $markdown->from('info@3oak.co.uk', '3 Oak');
         $markdown->subject = ucfirst($this->requestType)." Request";
 
         return $markdown;
