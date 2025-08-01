@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Woodland Flooring Ltd. Database</title>
-    <meta name="description" content="Woodland Flooring Ltd. Database">
+    <title>3 Oak Database</title>
+    <meta name="description" content="3 Oak Database">
     <script>
         function subst() {
             var vars = {};

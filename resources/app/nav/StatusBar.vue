@@ -63,7 +63,7 @@
     function createNotification() {
         const options = {
             body: "You will be logged out in 5 minutes",
-            icon: "https://woodlandflooring.co.uk/wp-content/uploads/2024/04/main-logo.svg",
+            icon: "https://3oak.co.uk/wp-content/themes/3oak/static/img/logo-white.svgg",
         }
         const title = "Authentication expires soon..."
         if ("Notification" in window) {

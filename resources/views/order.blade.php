@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Woodland Flooring Database</title>
-    <meta name="description" content="Woodland Flooring Database">
+    <title>3 Oak Flooring Database</title>
+    <meta name="description" content="3 Oak Flooring Database">
     @vite(['resources/scss/pdf.scss'])
 </head>
 

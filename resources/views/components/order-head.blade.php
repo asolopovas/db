@@ -8,12 +8,7 @@
     </tr>
     <tr>
         <td class="px-3" style="width:60%; min-height:40px;">
-            <img
-                src="https://db.woodlandflooring.co.uk/img/logo.png"
-                alt=""
-                width="330"
-                height="50"
-            />
+            <img src="https://3oak.co.uk/img/logo.png" alt="" width="330" height="50" />
         </td>
         <td class="px-2" style="width:40%; text-align:right;">
             <span class="title-status" style="font-size: 20px">
@@ -47,13 +42,16 @@
         <td style="width:50%;">
             <table style="text-align:right; float:right;">
                 <tr>
-                    <td class="pr-2 pb-2" style="width:50%"><b>Representative</b><br>{{ $user->name }}</td>
+                    <td class="pr-2 pb-2" style="width:50%">
+                        <b>Representative</b><br>{{ $user->name }}</td>
                 </tr>
                 <tr>
-                    <td class="pr-2 pb-2"><b>Order Number</b><br>{{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
+                    <td class="pr-2 pb-2"><b>Order
+                            Number</b><br>{{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
                 </tr>
                 <tr>
-                    <td class="pr-2 pb-2"><b>Invoice Date</b><br>{{ $order->updated_at->format('d M Y') }}</td>
+                    <td class="pr-2 pb-2"><b>Invoice
+                            Date</b><br>{{ $order->updated_at->format('d M Y') }}</td>
                 </tr>
                 @if ($order->due_date)
                     <tr>
