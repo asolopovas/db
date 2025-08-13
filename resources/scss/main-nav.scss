@@ -1,0 +1,15 @@
+.sub-nav-wrap:hover {
+    .sub-nav {
+        max-height: 400px;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    .nav-wrap {
+        transition: left 0.1s ease-in;
+    }
+
+    .nav-wrap.show {
+        left: 0;
+    }
+}

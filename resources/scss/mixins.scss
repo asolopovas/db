@@ -1,0 +1,23 @@
+@use "sass:map";
+$breakpoints: (
+    sm: 480px,
+    // Fallback value for CSS custom property
+    md: 768px,
+    lg: 1024px,
+    xl: 1200px
+);
+
+// Mixin for breakpoints
+@mixin breakpoint($size) {
+    @if map.has-key($breakpoints, $size) {
+        $breakpoint-value: map.get($breakpoints, $size);
+
+        @media screen and (min-width: #{$breakpoint-value}) {
+            @content;
+        }
+    }
+
+    @else {
+        @error "Unknown breakpoint: #{$size}. Check the \$breakpoints map.";
+    }
+}

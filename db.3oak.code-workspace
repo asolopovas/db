@@ -1,0 +1,83 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": "."
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Listen for Xdebug",
+                "type": "chrome",
+                "request": "launch",
+                "port": 9003,
+            }
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "dev",
+                "type": "shell",
+                "command": "bun run dev",
+                "presentation": {
+                    "reveal": "silent",
+                    "panel": "dedicated"
+                },
+                "group": "build"
+            },
+            {
+                "label": "prod",
+                "type": "shell",
+                "command": "bun run prod",
+                "presentation": {
+                    "reveal": "silent",
+                    "close": true
+                },
+                "group": "build"
+            },
+            {
+                "label": "commit",
+                "type": "shell",
+                "command": "git add -A && git diff --cached --quiet; and echo 'No changes to commit'; or git commit -m 'production' && git push",
+                "presentation": {
+                    "reveal": "silent",
+                    "close": true
+                },
+                "group": "build"
+            },
+            {
+                "label": "push",
+                "type": "shell",
+                "command": "git push",
+                "presentation": {
+                    "reveal": "always",
+                    "close": true
+                },
+                "group": "build"
+            },
+            {
+                "label": "pull",
+                "type": "shell",
+                "command": "git pull",
+                "presentation": {
+                    "reveal": "always",
+                    "close": true
+                },
+                "group": "build"
+            },
+            {
+                "label": "refresh-db",
+                "type": "shell",
+                "command": "dsync -d",
+                "presentation": {
+                    "reveal": "always",
+                },
+                "group": "build"
+            },
+        ]
+    }
+}

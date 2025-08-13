@@ -1,0 +1,31 @@
+.btn-action {
+    @apply flex items-center justify-center px-3 py-2;
+    height: 40px;
+}
+
+.btn-save,
+.btn-upload {
+    @apply px-4 py-2;
+}
+
+.btn-save {
+    background-color: #55ac80;
+
+    &:hover {
+
+        background-color: #407e5f;
+    }
+}
+
+.btn-upload {
+    @apply bg-yellow-200;
+
+    &:hover {
+        background-color: #ffc955;
+    }
+
+}
+
+.btn-toggle {
+    @apply fixed w-[44px] h-[44px] top-[7px] px-[6px] right-2 z-20 border lg:hidden;
+}

@@ -1,0 +1,12 @@
+{
+    "sshHost": "root",
+    "port": "8987",
+    "remote": {
+        "db": "threeoakwood_db"
+    },
+    "local": {
+        "db": "3oak_db"
+    },
+    "sync": [],
+    "dbReplace": []
+}

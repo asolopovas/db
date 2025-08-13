@@ -1,0 +1,46 @@
+.missed {
+  border-color: red;
+}
+
+/*Alerts  ====================================================================*/
+.error {
+  color: red;
+  margin-bottom: 16px;
+}
+
+.info {
+  color: #00d100;
+  margin-bottom: 16px;
+}
+
+.alert-block {
+  display: block;
+  line-height: 40px;
+  height: 40px;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+}
+
+.visible {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 5px;
+  max-height: 54px;
+}
+
+.alert-info .alert-link {
+  color: #245269;
+}
+
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}

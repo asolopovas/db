@@ -1,0 +1,29 @@
+.slider {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  z-index: -1;
+
+  // @include box-shadow(0px 1px 5px 0px #4a4a4a);
+  img {
+    display:none;
+    // max-width: none property fixes the general rule of all images being fluid
+    max-width: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .nivo-main-image {
+    position: relative;
+    width: 100%;
+  }
+  .nivo-slice {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+  }
+}
+
+.posAdjrest {
+  bottom:0;
+}

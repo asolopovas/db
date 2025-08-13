@@ -1,0 +1,14 @@
+.main-title {
+  border-bottom: 1px solid #838383;
+  color: #ffffff;
+  h1 {
+    line-height: 58px;
+    margin-bottom: 0;
+  }
+}
+
+@include breakpoint(medium) {
+  .main-wrap {
+    padding-top: 55px;
+  }
+}
