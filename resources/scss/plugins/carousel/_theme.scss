@@ -1,0 +1,94 @@
+
+.owl-theme {
+
+  // Styling Next and Prev buttons
+  .owl-nav {
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+
+    [class*='owl-'] {
+      position: absolute;
+      top: 41.666666666666700%;
+      color: $nav-color;
+      font-size: $nav-font-size;
+      display: inline-block;
+      cursor: pointer;
+      &:hover {
+        color: $nav-color-hover;
+        text-decoration: none;
+      }
+    }
+
+    $triangle-size: 20px;
+
+    .owl-prev {
+      left: 0;
+      border-top: $triangle-size solid transparent;
+      border-bottom: $triangle-size solid transparent;
+      border-right: $triangle-size solid #ccc;
+    }
+
+    .owl-next {
+      right: 0;
+      border-top: $triangle-size solid transparent;
+      border-bottom: $triangle-size solid transparent;
+      border-left: $triangle-size solid #ccc;
+    }
+
+    .disabled {
+      opacity: $nav-disabled-opacity;
+      cursor: default;
+    }
+  }
+
+  .floor {
+    .owl-item {
+      img {
+        a {
+          display: block;
+        }
+        height: 100%;
+        margin: 0 auto;
+        background: #fff;
+        padding: 3px;
+      }
+    }
+  }
+
+  .thumbs-slider {
+    max-height: 240px;
+  }
+  // Styling dots
+  .owl-nav.disabled + .owl-dots {
+    margin-top: 10px;
+  }
+  .owl-dots {
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+
+    .owl-dot {
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+
+      span {
+        width: $dot-width;
+        height: $dot-height;
+        margin: $dot-margin;
+        background: $dot-background;
+        display: block;
+        -webkit-backface-visibility: visible;
+        @include transition(opacity, 200ms, ease);
+        @include rounded($dot-rounded);
+      }
+
+      &.active,
+      &:hover {
+        span {
+          background: $dot-background-active;
+        }
+      }
+    }
+  }
+}
+

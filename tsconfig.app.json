@@ -1,0 +1,51 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "include": [
+        "env.d.ts",
+        "resources/**/*",
+        "resources/**/types/*.d.ts",
+        "public/**/*.svg",
+        "tests/ts/**/*.test.ts"
+    ],
+    "exclude": [
+        "tests/**/__tests__/*"
+    ],
+    "compilerOptions": {
+        "types": [
+            "jquery",
+            "vitest/globals"
+        ],
+        "composite": true,
+        "allowJs": true,
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "paths": {
+            "@root/*": [
+                "./*"
+            ],
+            "@/*": [
+                "./resources/*"
+            ],
+            "@app/*": [
+                "./resources/app/*"
+            ],
+            "@components/*": [
+                "./resources/app/components/*"
+            ],
+            "@icons/*": [
+                "./public/icons/*"
+            ],
+            "@js/*": [
+                "./resources/js/*"
+            ],
+            "@lib/*": [
+                "./resources/app/lib/*"
+            ],
+            "@types/*": [
+                "./resources/types/*"
+            ],
+            "@store/*": [
+                "./resources/app/store/*"
+            ],
+        }
+    }
+}

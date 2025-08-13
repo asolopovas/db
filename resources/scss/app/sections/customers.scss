@@ -1,0 +1,59 @@
+.customer-view, .customer-add {
+  .grand_design input {
+    width: 30px;
+    height: 30px;
+  }
+}
+.customer-view {
+  button {
+    height: 53px;
+    width: calc(50% - 30px);
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+.customer-add {
+  .bg {
+    min-height: 515px;
+  }
+  .details {
+    height: 685px;
+  }
+}
+
+.customer-view {
+  .input-block {
+    min-height: 430px;
+  }
+
+  .bg {
+    position: relative;
+    height: 740px;
+  }
+
+}
+
+@include breakpoint(medium) {
+  .customer-view, .customer-add {
+    button {
+      height: 53px;
+    }
+  }
+  .customer-view {
+    button {
+      width: calc(25% - 15px);
+      margin: 0 5px;
+      &:first-child {
+        margin-left: 15px;
+      }
+      &:last-child {
+        margin-right: 15px;
+      }
+    }
+    .bg {
+      height: 672px;
+    }
+  }
+}

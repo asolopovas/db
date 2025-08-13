@@ -1,0 +1,22 @@
+.order-edit {
+  .bg {
+    min-height: 370px;
+  }
+  @include breakpoint(medium) {
+    .bg {
+      min-height: 600px;
+    }
+  }
+}
+
+@include breakpoint(medium) {
+  .orders-table-wrap {
+    min-height: 600px;
+    td {
+      vertical-align: baseline;
+    }
+  }
+  .orders-table {
+    height: 600px;
+  }
+}

@@ -1,0 +1,181 @@
+.table-wrap {
+    @apply w-full max-w-[1200px] mx-auto;
+
+    th {
+        @apply cursor-pointer select-none;
+    }
+}
+
+.table-container {
+    @apply px-4 overflow-auto w-full;
+}
+
+.table-order-edit {
+    @apply table-auto text-sm border mx-auto mt-4
+}
+
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+
+    tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        text-align: left;
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    table {
+        border: 0;
+
+        caption {
+            font-size: 1.3em;
+        }
+
+        thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        tr {
+            border-bottom: 2px solid #d1d1d1;
+            display: block;
+            &:last-child {
+                border-bottom: 0px;
+            }
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+            align-content: center;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+        td::before {
+            /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td:last-child {
+            border-bottom: 0;
+        }
+    }
+}
+
+.t-col {
+    min-height: 40px;
+    @apply p-2;
+}
+
+@media screen and (min-width: 768px) {
+
+    .t-col-amount,
+    .t-col-balance,
+    .t-col-unit-price,
+    .t-col-expenses,
+    .t-col-grand-total,
+    .t-col-total,
+    .t-col-meterage,
+    .t-col-quantity,
+    .t-col-price,
+    .t-col-vat,
+    .t-col-vat-total {
+        text-align: right;
+    }
+
+    .t-col-action {
+        @apply px-3;
+        align-content: center;
+        text-align: right;
+    }
+
+    .t-col-address {
+        min-width: 180px;
+        text-align: left
+    }
+
+    .t-col-postcode {
+        width: 110px;
+        text-align: center;
+    }
+
+    .t-col-balance {
+        width: 120px;
+    }
+
+    .t-col-customer {
+        width: 160px;
+    }
+
+    .t-col-date {
+        min-width: 130px
+    }
+
+    .t-col-grandtotal {
+        width: 125px;
+        text-align: right;
+    }
+
+    .t-col-id {
+        width: 50px
+    }
+
+    .t-col-price {
+        width: 100px;
+    }
+
+    .t-col-specs {
+        width: 300px;
+    }
+
+    .t-col-status {
+        width: 80px;
+    }
+
+    .t-col-vat {
+        width: 60px;
+    }
+
+    .t-col-quantity {
+        width: 80px;
+    }
+
+    .t-col-unit-price {
+        width: 100px
+    }
+}
+
+
+tfoot {
+    @apply font-bold;
+
+    tr {
+        @apply bg-green-300;
+    }
+}
