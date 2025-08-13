@@ -13,23 +13,6 @@
         rel="stylesheet"
     />
     <link href="https://use.fontawesome.com/releases/v6.2.0/css/all.css" rel="stylesheet">
-    <link
-        href="https://3oak.co.uk/wp-content/uploads/2024/04/cropped-android-chrome-512x512-1-32x32.png"
-        rel="icon"
-        sizes="32x32"
-    >
-    <link
-        href="https://3oak.co.uk/wp-content/uploads/2024/04/cropped-android-chrome-512x512-1-192x192.png"
-        rel="icon"
-        sizes="192x192"
-    >
-    <link
-        href="https://3oak.co.uk/wp-content/uploads/2024/04/cropped-android-chrome-512x512-1-180x180.png"
-        rel="apple-touch-icon"
-    >
-    <meta name="msapplication-TileImage"
-        content="https://3oak.co.uk/wp-content/uploads/2024/04/cropped-android-chrome-512x512-1-270x270.png"
-    >
 </head>
 
 <body class="bg-neutral-300">
