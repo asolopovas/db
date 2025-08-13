@@ -27,8 +27,6 @@ if (app()->isLocal()) {
     Route::get('{id}/send', [OrdersController::class, 'send']);
 }
 
-Route::get('xero-redirect-auth', [XeroController::class, 'handleRedirectAuth']);
-
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
