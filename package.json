@@ -25,6 +25,7 @@
         "algoliasearch": "^5.15.0",
         "autoprefixer": "^10.4.20",
         "bun": "^1.1.38",
+        "caniuse-lite": "^1.0.30001734",
         "canvas": "^2.11.2",
         "chart.js": "^4.4.7",
         "chartjs-plugin-datalabels": "^2.2.0",
