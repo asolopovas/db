@@ -63,3 +63,22 @@ p {
     text-align: end;
 }
 
+
+.double-border {
+  border-bottom: 1px solid #ccc;
+  padding: 2em;
+  width: 16em;
+  position: relative;
+  margin: 0 auto;
+}
+
+.double-border::before {
+  background: none;
+  border-bottom: 1px solid #ccc;
+  content: "";
+  width: 100%;
+  display: block;
+  position: absolute;
+  bottom: 4px;
+  pointer-events: none;
+}
