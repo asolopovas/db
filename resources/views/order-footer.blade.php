@@ -26,33 +26,6 @@
 </head>
 
 <body style="font-size: 12px; margin: 14px;" onload="subst()">
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
-        <tr>
-            <td>
-                @php
-                    $details = [
-                        strip_tags($company->address),
-                        $company->vat_number ? 'VAT: ' . $company->vat_number : null,
-                        $company->telephone1 ? 'Tel: ' . $company->telephone1 : null,
-                        $company->telephone2 ? 'Tel 2: ' . $company->telephone2 : null,
-                        $company->email ? 'Email: ' . $company->email : null,
-                    ];
-                    $detailsString = implode('; ', array_filter($details));
-                @endphp
-
-                {{ $company->name }}
-                {{ strip_tags($detailsString) }}
-                {!! str_replace('<br>', '', $company->notes) !!}
-            </td>
-        </tr>
-    </table>
-
-    <!-- Footer Section -->
-    <div id="pages" style="text-align: right; margin-top: 10px;">
-        <span style="font-weight: bold;">
-            Page <span id="pageNumber"></span> of <span id="totalPages"></span>
-        </span>
-    </div>
 </body>
 
 </html>
