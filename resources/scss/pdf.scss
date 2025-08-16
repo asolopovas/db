@@ -1,7 +1,36 @@
 @use "./bootstrap.min.css" as *;
 
+#print-area {
+    position:   relative;
+    top:        1cm;
+    left:       1cm;
+    width:      21cm;
+    height:     29.7cm;
+    font-family:    'Times New Roman', Times, serif;
+}
+
+#header {
+    height:     3cm;
+    background: #ccc;
+}
+
+#footer {
+    position:   absolute;
+    bottom:     0;
+    width:      100%;
+    height:     4cm;
+    background: #ccc;
+}
+
+#footer-area {
+    width: 210mm;
+    margin-top: 10mm;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .table-design {
-    width: 230mm;
+    width: 100%;
     border: none;
     margin-left: auto;
     margin-right: auto;
@@ -40,13 +69,6 @@
     .bg-gray {
         background-color: #fafafa;
     }
-}
-
-#footer-area {
-    width: 210mm;
-    margin-top: 10mm;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 p {
