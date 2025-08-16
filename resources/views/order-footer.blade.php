@@ -27,39 +27,12 @@
 </head>
 
 <body id="footer-area" onload="subst()">
-    <div id="pages" class="disabled">
-    </div>
-    <div id="last-page" class="disabled">
-        <div class="row">
-            <div class="small-5 column">
-                @if ($company->id === 2)
-                    {{ $company->name }} trading as 3 Oak Wood Flooring:<br>
-                @else
-                    {{ $company->name }}:<br>
-                @endif
-                {{ strip_tags($company->address) }}<br>
-                @if ($company->vat_number)
-                    VAT: {{ $company->vat_number }}
-                @endif
-                Tel: {{ $company->telephone1 }}
-                @if ($company->telephone2)
-                    Tel 2: {{ $company->telephone2 }}<br>
-                @endif
-                @if ($company->email)
-                    Email: {{ $company->email }}
-                @endif
-            </div>
-            <div class="small-7 column footnotes">
-                N.B.:<br>
-                {!! $company->notes !!}
-            </div>
-        </div>
-        <div class="row">
-            <div class="column padding-top-1">
-                Important: Full or partial payment for this invoice is deemed as acceptance of our Terms and Condition.
-                If you have any questions please clarify before making the payment.
-            </div>
-        </div>
+
+    <!-- Footer Section -->
+    <div id="pages" style="text-align: right; margin-top: 10px;">
+        <span style="font-weight: bold;">
+            Page <span id="pageNumber"></span> of <span id="totalPages"></span>
+        </span>
     </div>
 </body>
 

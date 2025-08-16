@@ -8,6 +8,7 @@ import svgLoader from 'vite-svg-loader'
 export default defineConfig({
     server: {
         host: 'localhost',
+        allowedHosts: true
     },
     plugins: [
         laravel({
