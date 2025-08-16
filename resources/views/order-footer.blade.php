@@ -57,12 +57,11 @@
             If you have any questions please clarify before making the payment.
         </div>
 
-    </div>
-
         <div id="pages" style="text-align: right; margin-top: 10px;">
         <span style="font-weight: bold;">
             <span id="totalPages"></span>
         </span>
+    </div>
 </body>
 
 </html>
