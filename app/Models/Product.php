@@ -279,7 +279,7 @@ class Product extends Model
 
         return $this->length
             ? "{$this->type} {$thickness_fmt}x{$this->width}x{$this->length}mm"
-            : "{$this->type}s {$thickness_fmt}x{$this->width}mm";
+            : "{$this->type}s {$thickness_fmt}x{$this->width}x800-2800mm";
     }
 
     /**

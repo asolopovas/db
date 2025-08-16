@@ -3,7 +3,7 @@
 
     $produce_name = $product->sku ? $product->floor . " ({$product->sku})" : $product->floor;
     $details[] = $produce_name . ($product->floor !== 'Natural Oiled' ? ' - Bespoke, Handfinished, Premium European Oak' : '');
-    $details[] = $product->type === 'plank' ? $product->dimensions . " - 2800 mm" : $product->dimensions;
+    $details[] = $product->dimensions;
     $details[] = $product->grade . ' Grade';
 
 @endphp
