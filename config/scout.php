@@ -71,7 +71,7 @@ return [
     */
 
     'elasticsearch' => [
-        'index'  => env('ELASTICSEARCH_INDEX', 'threeoakwood_db'),
+        'index'  => env('ELASTICSEARCH_INDEX', 'woodland_db'),
         'config' => [
             'hosts' => [
                 env('ELASTICSEARCH_HOST', "http://localhost:9200"),
