@@ -35,7 +35,6 @@ Route::middleware(['can:is_admin,App\Models\User'])->group(function () {
     Route::get('commissions-data', [OrdersController::class, 'exportCommissionsData']);
 });
 
-
 Route::get('orders/totals', [OrdersController::class, 'totals']);
 Route::get('orders/notes-view', [OrdersController::class, 'notesView']);
 Route::get('orders/{order}/related', [OrdersController::class, 'relatedIds']);
