@@ -92,7 +92,7 @@ class HtmlPdfGenerator
         $storeKey = "order-{$this->order->id}-footer";
         $cacheKey = "{$this->key}-footer";
 
-        if (Cache::has($cacheKey) && (bool)env('APP_CACHE')) {
+        if (Cache::has($cacheKey) && (bool) env('APP_CACHE')) {
             return Cache::get($cacheKey);
         }
         $this->resetCache($storeKey, $cacheKey);
