@@ -4,7 +4,7 @@
             <table class="table-bordered table" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th style="width: 150px;">Date Paid</th>
+                        <th >Date Paid</th>
                         @if ($proforma)
                             <th>Description</th>
                         @endif
