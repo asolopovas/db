@@ -141,6 +141,7 @@ class Product extends Model
             [
                 'products.*',
                 'floors.name as floor',
+                'floors.sku as sku',
                 'extras.name as extra',
                 'dimensions.width as width',
                 'dimensions.length as length',

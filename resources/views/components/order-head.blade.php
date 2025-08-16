@@ -45,7 +45,7 @@
                     <td class="pr-2 pb-2"><b>Order Number:</b> {{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
                 </tr>
                 <tr>
-                    <td class="pr-2 pb-2"><b>Invoice Date: </b>{{ $order->updated_at->format('d M Y') }}</td>
+                    <td class="pr-2 pb-2"><b>Date: </b>{{ $order->updated_at->format('d M Y') }}</td>
                 </tr>
                 @if ($order->due_date)
                     <tr>
