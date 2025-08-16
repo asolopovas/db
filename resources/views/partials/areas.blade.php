@@ -1,13 +1,10 @@
 @php
     $details = [];
 
-    $details[] = $product->floor . ($product->floor !== 'Natural Oiled' ? ' - Bespoke' : '') . ':';
-    $details[] = $product->dimensions;
+    $details[] = $product->floor . ($product->floor !== 'Natural Oiled' ? ' - Bespoke Handfinished' : '') . ':';
+    $details[] = $product->dimensions . " - 2800 mm";
+    $details[] = "European Oak";
     $details[] = $product->grade . ' Grade';
-
-    if ($product->extra) {
-        $details[] = 'Extras: ' . $product->extra;
-    }
 
     if ($product->meterage) {
         $details[] = 'Meterage: ' . ($product->meterage + $product->wastage) . ' m²';

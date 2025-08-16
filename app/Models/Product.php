@@ -167,22 +167,22 @@ class Product extends Model
     public function scopeData($query)
     {
         return $query->join('orders', 'products.order_id', '=', 'orders.id')
-                     ->withMeta()
-                     ->join('statuses', 'orders.status_id', '=', 'statuses.id')
-                     ->leftjoin('projects', 'orders.project_id', '=', 'projects.id')
-                     ->with('customer')
-                     ->where('statuses.name', 'Invoice')
-                     ->whereRaw('orders.balance != orders.grand_total')
-                     ->addSelect(
-                         [
-                             'projects.street as pr_street',
-                             'projects.postcode as pr_postcode',
-                             'statuses.name as status',
-                             'orders.customer_id',
-                             'orders.payment_date as order_date',
-                         ]
-                     )
-                     ->orderBy('order_date', 'asc');
+            ->withMeta()
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->leftjoin('projects', 'orders.project_id', '=', 'projects.id')
+            ->with('customer')
+            ->where('statuses.name', 'Invoice')
+            ->whereRaw('orders.balance != orders.grand_total')
+            ->addSelect(
+                [
+                    'projects.street as pr_street',
+                    'projects.postcode as pr_postcode',
+                    'statuses.name as status',
+                    'orders.customer_id',
+                    'orders.payment_date as order_date',
+                ]
+            )
+            ->orderBy('order_date', 'asc');
     }
 
     /**
@@ -273,5 +273,4 @@ class Product extends Model
     {
         return 'products_index';
     }
-
 }
