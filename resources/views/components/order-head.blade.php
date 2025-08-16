@@ -42,10 +42,6 @@
         <td style="width:50%;">
             <table style="text-align:right; float:right;">
                 <tr>
-                    <td class="pr-2 pb-2" style="width:50%">
-                        <b>Representative</b><br>{{ $user->name }}</td>
-                </tr>
-                <tr>
                     <td class="pr-2 pb-2"><b>Order
                             Number</b><br>{{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
                 </tr>
