@@ -143,7 +143,7 @@ class HtmlPdfGenerator
             ? "pdf/{$this->key}-reverse-charge.pdf"
             : "pdf/{$this->key}.pdf";
 
-        if (Storage::exists($filePath)) {
+        if (env('APP_CACHE') && Storage::exists($filePath)) {
             return $filePath;
         }
         $value = $this->generatePdf();
