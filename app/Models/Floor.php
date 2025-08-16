@@ -8,19 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Floor
- *
- * @property int                                                          $id
- * @property string                                                       $name
- * @property float                                                        $price
- * @property \Illuminate\Support\Carbon|null                              $created_at
- * @property \Illuminate\Support\Carbon|null                              $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Product[] $products
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Floor whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Floor whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Floor whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Floor wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Floor whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Floor extends Model
 {
@@ -31,6 +18,7 @@ class Floor extends Model
     ];
     protected $fillable = [
         'name',
+        'sku',
         'price',
         'vendor',
         'vendor_name',

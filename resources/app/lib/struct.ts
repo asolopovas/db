@@ -7,6 +7,7 @@ import ProjectStructure from '@app/structures/ProjectStructure'
 import TwoColStructure from '@app/structures/TwoColStructure'
 import SettingsStructure from '@app/structures/SettingsStructure'
 import UserStructure from '@app/structures/UserStructure'
+import FloorsStructure from '../structures/FloorsStructure'
 
 const defaultStruct = {
     fields: {
@@ -22,7 +23,7 @@ const structs: { [key: string]: any } = {
     customers: CustomerStructure,
     dimensions: DimensionStructure,
     extras: TwoColStructure,
-    floors: TwoColStructure,
+    floors: FloorsStructure,
     grades: TwoColStructure,
     materials: {
         ...TwoColStructure,
