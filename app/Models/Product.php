@@ -261,9 +261,24 @@ class Product extends Model
      */
     public function getDimensionsAttribute()
     {
-        return $this->length ?
-            "{$this->length}x{$this->width}x{$this->thickness}mm" :
-            "{$this->width}x{$this->thickness}mm";
+        $thickness = $this->thickness;
+        $thickness = is_numeric($thickness) ? (float) $thickness : null;
+
+        if ($thickness !== null) {
+            if ($thickness >= 20) {
+                $thickness_fmt = "{$thickness}(6)";
+            } elseif ($thickness == 15) {
+                $thickness_fmt = "{$thickness}(4)";
+            } else {
+                $thickness_fmt = (string) $thickness;
+            }
+        } else {
+            $thickness_fmt = (string) $thickness;
+        }
+
+        return $this->length
+            ? "{$this->type} {$thickness_fmt}x{$this->width}x{$this->length}mm"
+            : "{$this->width}x{$thickness_fmt}mm";
     }
 
     /**
