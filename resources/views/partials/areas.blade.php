@@ -36,7 +36,7 @@
             <td class="text-end">@currency($product->unit_price * $area->meterage)</td>
         </tr>
         @endforeach
-        <tr class="bg-gray-50">
+        <tr class="bg-gray">
             <td class="font-weight-bolder">
                 Wastage
             </td>

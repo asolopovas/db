@@ -11,7 +11,8 @@
 .table {
     border: none;
 
-    td, th {
+    td,
+    th {
         border-top: 0;
         border: none;
         padding-top: 0.2rem;
@@ -29,9 +30,15 @@
     }
 
     &.table-bordered {
-        td, th {
+
+        td,
+        th {
             border: none;
         }
+    }
+
+    .bg-gray {
+        background-color: #fafafa;
     }
 }
 
