@@ -1,17 +1,19 @@
 @php
     $details = [];
 
-    $details[] = $product->floor . ($product->floor !== 'Natural Oiled' ? ' - Bespoke Handfinished' : '') . ':';
-    $details[] = $product->dimensions . " - 2800 mm";
-    $details[] = "European Oak";
+    $details[] = $product->floor . ($product->floor !== 'Natural Oiled' ? ' - Bespoke Handfinished Premium European Oak' : '');
+    $details[] = $product->type === 'plank' ? $product->dimensions . " - 2800 mm" : $product->dimensions;
     $details[] = $product->grade . ' Grade';
 
-    if ($product->meterage) {
-        $details[] = 'Meterage: ' . ($product->meterage + $product->wastage) . ' m²';
-    }
 @endphp
 <div class="mb-2 pl-1">
-    <b>Product:</b> {{ implode(', ', $details) }}
+    <em>{{ implode(', ', $details) }}
+    @php
+    if ($product->meterage) {
+        $meterage = '<br>Meterage: ' . ($product->meterage + $product->wastage) . ' m²';
+    }
+    @endphp
+    {!! $meterage ?? '' !!}</em>
 </div>
 
 

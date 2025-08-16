@@ -10,8 +10,8 @@
         <td class="px-3" style="width:60%; min-height:40px;">
             <img src="https://3oak.co.uk/logo-sub-heading.png" alt="3oak logo" width="250" height="103" />
         </td>
-        <td class="px-2" style="width:40%; text-align:right;">
-            <span class="title-status" style="font-size: 20px">
+        <td class="px-2" style="font-width:40%; text-align:right;">
+            <span class="title-status" style="font-size: 40px">
                 {{ $status }}
             </span>
         </td>
@@ -40,23 +40,21 @@
             </div>
         </td>
         <td style="width:50%;">
-            <table style="text-align:right; float:right;">
+            <table style="width: 100%; text-align:right; float:right;">
                 <tr>
-                    <td class="pr-2 pb-2"><b>Order
-                            Number</b><br>{{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
+                    <td class="pr-2 pb-2"><b>Order Number:</b> {{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
                 </tr>
                 <tr>
-                    <td class="pr-2 pb-2"><b>Invoice
-                            Date</b><br>{{ $order->updated_at->format('d M Y') }}</td>
+                    <td class="pr-2 pb-2"><b>Invoice Date: </b>{{ $order->updated_at->format('d M Y') }}</td>
                 </tr>
                 @if ($order->due_date)
                     <tr>
-                        <td class="pr-2 py-2"><b>Payment Due</b><br>{{ $order->due_date }}</td>
+                        <td class="pr-2 py-2"><b>Payment Due:</b> {{ $order->due_date }}</td>
                     </tr>
                 @endif
                 @if ($order->reverse_charge)
                     <tr>
-                        <td class="pr-2"><b>Reverse Charge</b><br> 20%</td>
+                        <td class="pr-2"><b>Reverse Charge:</b> 20%</td>
                     </tr>
                 @endif
             </table>
