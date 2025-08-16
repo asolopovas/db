@@ -43,7 +43,6 @@
                         $detailsString = implode(' ', array_filter($details));
                     @endphp
 
-
                     {{ $company->name }}<br>
                     {!! $company->address !!}
                     {!! $detailsString !!}
@@ -55,12 +54,14 @@
             </tr>
         </table>
 
-        <div class="row">
-            <div class="column padding-top-1">
-                Important: Full or partial payment for this invoice is deemed as acceptance of our Terms and Condition.
-                If you have any questions please clarify before making the payment.
-            </div>
+        <div class="w-full">
+            Important: Full or partial payment for this invoice is deemed as acceptance of our Terms and Condition.
+            If you have any questions please clarify before making the payment.
         </div>
+
+    </div>
+
+        <div id="pages" style="text-align: right; margin-top: 10px;">
         <span style="font-weight: bold;">
             <span id="totalPages"></span>
         </span>
