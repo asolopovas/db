@@ -29,11 +29,41 @@
 <body id="footer-area" onload="subst()">
 
     <!-- Footer Section -->
-    <div id="pages" style="text-align: right; margin-top: 10px;">
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+            <tr>
+                <td style="width: 200px">
+                    @php
+                        $details = [
+                            $company->vat_number ? 'VAT: ' . $company->vat_number : null,
+                            $company->telephone1 ? 'Tel: ' . $company->telephone1 : null,
+                            $company->telephone2 ? 'Tel 2: ' . $company->telephone2 : null,
+                            $company->email ? 'Email: ' . $company->email : null,
+                        ];
+                        $detailsString = implode(' ', array_filter($details));
+                    @endphp
+
+
+                    {{ $company->name }}<br>
+                    {!! $company->address !!}
+                    {!! $detailsString !!}
+                </td>
+                <td style="width:50%">
+                    N.B.:<br>
+                    {!! str_replace('<br>', '', $company->notes) !!}
+                </td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="column padding-top-1">
+                Important: Full or partial payment for this invoice is deemed as acceptance of our Terms and Condition.
+                If you have any questions please clarify before making the payment.
+            </div>
+        </div>
         <span style="font-weight: bold;">
-            Page <span id="pageNumber"></span> of <span id="totalPages"></span>
+            <span id="totalPages"></span>
         </span>
-    </div>
 </body>
 
 </html>
