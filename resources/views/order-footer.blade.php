@@ -27,9 +27,7 @@
 </head>
 
 <body id="footer-area" onload="subst()">
-
     <!-- Footer Section -->
-
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
             <tr>
                 <td style="width: 200px">
