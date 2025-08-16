@@ -261,7 +261,9 @@ class Product extends Model
      */
     public function getDimensionsAttribute()
     {
-        return $this->length ? "{$this->length}x{$this->width}x{$this->thickness}mm" : "{$this->width}x{$this->thickness}mm";
+        return $this->length ?
+            "{$this->length}x{$this->width}x{$this->thickness}mm" :
+            "{$this->width}x{$this->thickness}mm";
     }
 
     /**
