@@ -9,10 +9,6 @@ import svgLoader from 'vite-svg-loader'
 export default defineConfig({
     server: {
         host: 'localhost',
-        https: {
-            key: fs.readFileSync('./ssl/localhost.key'),
-            cert: fs.readFileSync('./ssl/localhost.crt'),
-        },
     },
     plugins: [
         laravel({
