@@ -36,8 +36,8 @@
             <td class="text-end">@currency($product->unit_price * $area->meterage)</td>
         </tr>
         @endforeach
-        <tr class="bg-gray">
-            <td class="font-weight-bolder">
+        <tr>
+            <td>
                 Wastage
             </td>
             <td class="text-end">{{ $product->wastage }} m²</td>
@@ -45,7 +45,7 @@
             <td class="text-end">@currency($product->unit_price * $product->wastage)</td>
         </tr>
     </tbody>
-    <tfoot>
+    <tfoot class="bg-gray double-border">
         <tr>
             <td class="text-end" colspan="4">Sub-Total: @currency($product->price)</td>
         </tr>
