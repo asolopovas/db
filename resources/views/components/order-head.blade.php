@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td class="px-3" style="width:60%; min-height:40px;">
-            <img src="https://3oak.co.uk/wp-content/themes/3oak/static/img/logo.svg" alt="" width="158" height="45" />
+            <img src="https://3oak.co.uk/logo-sub-heading.png" alt="3oak logo" width="250" height="103" />
         </td>
         <td class="px-2" style="width:40%; text-align:right;">
             <span class="title-status" style="font-size: 20px">
