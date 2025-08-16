@@ -78,6 +78,16 @@
                 },
                 "group": "build"
             },
+            {
+                "label": "clear-pdf",
+                "type": "shell",
+                "command": "find storage/app/pdf -type f -name '*.pdf' -delete 2>/dev/null || true",
+                "presentation": {
+                    "reveal": "silent",
+                    "panel": "dedicated"
+                },
+                "group": "build"
+            },
         ]
     }
 }
