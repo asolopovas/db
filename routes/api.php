@@ -42,6 +42,7 @@ Route::post('orders/{id}/request-{item}', [OrdersController::class, 'sendRequest
 Route::get('orders/{id}/pdf-default', [OrdersController::class, 'viewPdf']);
 Route::get('orders/{id}/pdf-reverse-charge', [OrdersController::class, 'reverseChargePdf']);
 Route::get('orders/{id}/default-html', [OrdersController::class, 'viewDefaultHtml']);
+Route::get('orders/{id}/footer-html', [OrdersController::class, 'footerHtml']);
 Route::get('orders/{id}/reverse-charge-html', [OrdersController::class, 'viewReverseChargeHtml']);
 Route::get('orders/{id}/download', [OrdersController::class, 'download']);
 Route::post('orders/{id}/send', [OrdersController::class, 'send']);
