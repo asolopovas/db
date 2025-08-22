@@ -6,6 +6,8 @@ use App\Helpers\StatsHelper;
 use App\Models\OrderMaterial;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use InvalidArgumentException;
 
 class OrderMaterialsController extends CrudController
 {
@@ -64,7 +66,7 @@ class OrderMaterialsController extends CrudController
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Model $material)
+    public function update(Model $material): JsonResponse
     {
         if (!$material instanceof OrderMaterial) {
             throw new InvalidArgumentException();
@@ -84,7 +86,7 @@ class OrderMaterialsController extends CrudController
      * @return array
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store()
+    public function store(): JsonResponse
     {
         try {
             $this->validate(request(), $this->storeValidationRules(), $this->messages);
@@ -92,7 +94,19 @@ class OrderMaterialsController extends CrudController
             throw $th;
         }
 
-        $material = OrderMaterial::create(request()->all());
+        $data = request()->all();
+
+        if (isset($data['material_id'])) {
+            $materialModel = \App\Models\Material::find($data['material_id']);
+            if ($materialModel) {
+                $data['name'] = $materialModel->name;
+                if (!isset($data['unit_price'])) {
+                    $data['unit_price'] = $materialModel->price;
+                }
+            }
+        }
+
+        $material = OrderMaterial::create($data);
         $item = OrderMaterial::find($material->id);
 
         return response()->json([
