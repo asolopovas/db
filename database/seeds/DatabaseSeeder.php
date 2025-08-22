@@ -15,9 +15,6 @@ class DatabaseSeeder extends Seeder
     Model::unguard();
     $this->setFKCheckOff();
 
-    // MYSQL
-    //    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    // Truncate all tables
     $seeders = [
       'areas',
       'companies',
