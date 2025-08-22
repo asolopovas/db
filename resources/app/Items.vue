@@ -82,7 +82,7 @@
                             </th>
                             <th
                                 scope="col"
-                                class="t-col t-col-action"
+                                class="t-col t-col-action w-[200px]"
                             >
                                 Action
                             </th>
