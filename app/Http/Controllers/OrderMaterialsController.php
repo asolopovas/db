@@ -113,6 +113,6 @@ class OrderMaterialsController extends CrudController
             "type" => "success",
             "message" => "$this->name Successfully Created",
             "item" => $item->load('material'),
-        ])->header("Content-Type", "application/json");
+        ]);
     }
 }
