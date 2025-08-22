@@ -36,7 +36,7 @@
 
     const search = ref<any>({})
     const perPage = ref<any>({})
-    const options = ref([20, 30, 50])
+    const options = ref([20, 30, 50, 100, 500])
     const route = useRoute()
     const router = useRouter()
 
@@ -45,8 +45,10 @@
         if (search.value.trim()) query.search = search.value.trim()
         else delete query.search
 
-        if (perPage.value) query.perPage = perPage.value
-        else delete query.perPage
+        if (perPage.value) {
+            query.perPage = perPage.value
+            delete query.page
+        }
 
         // Update query only if there are actual changes
         if (JSON.stringify(query) !== JSON.stringify(route.query)) {
