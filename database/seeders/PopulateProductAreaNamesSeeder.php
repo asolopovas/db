@@ -3,30 +3,21 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ProductArea;
+use Illuminate\Support\Facades\DB;
 
 class PopulateProductAreaNamesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $productAreas = ProductArea::whereNull('name')
-            ->orWhere('name', '')
-            ->with('area')
-            ->chunk(100, function ($productAreas) {
-                foreach ($productAreas as $productArea) {
-                    if ($productArea->area) {
-                        $productArea->update([
-                            'name' => $productArea->area->name
-                        ]);
-                    }
-                }
-            });
+        $affected = DB::table('product_areas')
+            ->join('areas', 'product_areas.area_id', '=', 'areas.id')
+            ->whereNull('product_areas.name')
+            ->update(['product_areas.name' => DB::raw('areas.name')]);
 
-        $this->command->info('ProductArea names populated from Area table.');
+        if ($this->command) {
+            $this->command->info("ProductArea names populated from Area table. Updated {$affected} records.");
+        } else {
+            echo "ProductArea names populated from Area table. Updated {$affected} records.\n";
+        }
     }
 }
