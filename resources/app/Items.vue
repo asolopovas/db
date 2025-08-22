@@ -3,6 +3,13 @@
         <!-- Header -->
         <template #options>
             <base-button
+                v-if="selectedItems.length"
+                class="btn-action bg-red-600 hover:bg-red-700 text-white mr-2"
+                @click="confirmBulkDelete"
+            >
+                Delete Selected ({{ selectedItems.length }})
+            </base-button>
+            <base-button
                 class="btn-action bg-emerald-600 hover:bg-emerald-700 text-white"
                 @click="addItem"
             >
@@ -29,7 +36,10 @@
             @no="confirmation = false"
             @yes="remove"
         >
-            Do you wish to delete this user?
+            {{ selectedItems.length > 0 ? 
+                `Do you wish to delete ${selectedItems.length} selected items?` : 
+                'Do you wish to delete this item?' 
+            }}
         </modal>
         <!-- New Item Modal -->
         <modal
@@ -71,6 +81,14 @@
                 <table>
                     <thead>
                         <tr class="bg-white">
+                            <th scope="col" class="t-col w-12">
+                                <input
+                                    type="checkbox"
+                                    :checked="isAllSelected"
+                                    @change="toggleSelectAll"
+                                    class="rounded"
+                                />
+                            </th>
                             <th
                                 v-for="key in tableKeys"
                                 :key="key"
@@ -93,6 +111,14 @@
                             v-for="item in itemsAggregate"
                             :key="item.id"
                         >
+                            <td class="t-col w-12">
+                                <input
+                                    type="checkbox"
+                                    :value="item.id"
+                                    v-model="selectedItems"
+                                    class="rounded"
+                                />
+                            </td>
                             <td
                                 v-for="key in tableKeys"
                                 class="t-col"
@@ -172,6 +198,7 @@
     const item = ref<any>({})
     const itemClone = ref<any>({})
     const sortDirections = ref<Record<string, "asc" | "desc">>({})
+    const selectedItems = ref<number[]>([])
 
     // Computed
     const storePagination = computed(() => store.state.pagination)
@@ -200,6 +227,9 @@
     const tableKeys = computed(() =>
         columns.value ? Object.keys(columns.value) : Object.keys(structure.value.fields)
     )
+    const isAllSelected = computed(() =>
+        items.value.length > 0 && selectedItems.value.length === items.value.length
+    )
 
     // Functions
     const addItem = () => {
@@ -210,6 +240,19 @@
     const resetValue = () => {
         item.value = {}
         itemClone.value = {}
+        selectedItems.value = []
+    }
+    
+    const toggleSelectAll = () => {
+        if (isAllSelected.value) {
+            selectedItems.value = []
+        } else {
+            selectedItems.value = items.value.map((item: any) => item.id)
+        }
+    }
+    
+    const confirmBulkDelete = () => {
+        confirmation.value = true
     }
     const itemValue = (item: any, key: string) => {
         if (key === "measurement_unit") return item.measurement_unit
@@ -219,18 +262,27 @@
     }
 
     const confirm = (selectedItem: any) => {
+        selectedItems.value = []
         item.value = { ...selectedItem }
         itemClone.value = { ...selectedItem }
         confirmation.value = true
     }
     const remove = async () => {
-        await store.dispatch("deleteItemAction", {
-            id: item.value.id,
-            routeName: route.name,
-        })
+        if (selectedItems.value.length > 0) {
+            for (const id of selectedItems.value) {
+                await store.dispatch("deleteItemAction", {
+                    id,
+                    routeName: route.name,
+                })
+            }
+        } else {
+            await store.dispatch("deleteItemAction", {
+                id: item.value.id,
+                routeName: route.name,
+            })
+        }
         confirmation.value = false
         resetValue()
-        Item
     }
     const add = async () => {
         await store.dispatch("createItemAction", { item: item.value, routeName: route.name })
