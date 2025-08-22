@@ -40,6 +40,7 @@ class OrderService extends Model
     protected $fillable = [
         'order_id',
         'service_id',
+        'name',
         'unit_price',
         'quantity',
     ];
@@ -67,8 +68,7 @@ class OrderService extends Model
 
     public function scopeWithMeta(Builder $query)
     {
-        $query->join('services', 'order_services.service_id', '=', 'services.id')
-            ->addSelect(['services.name']);
+        return $query;
     }
 
     public function scopeData($query)
@@ -76,7 +76,6 @@ class OrderService extends Model
         $query->join('orders', 'order_services.order_id', '=', 'orders.id')
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->leftjoin('projects', 'orders.project_id', '=', 'projects.id')
-            ->withMeta()
             ->with('customer')
             ->where('orders.balance', 0)
             ->where('statuses.name', 'Invoice')
@@ -84,7 +83,7 @@ class OrderService extends Model
                 [
                     'order_services.unit_price',
                     'order_services.quantity',
-                    'services.name as name',
+                    'order_services.name',
                     'projects.street as pr_street',
                     'projects.postcode as pr_postcode',
                     'orders.id as order_id',
@@ -96,10 +95,6 @@ class OrderService extends Model
     }
 
 
-    public function getNameAttribute()
-    {
-        return ucwords(str_replace('_', ' ', $this->service->name));
-    }
     /**
      * Total Price attribute accessor
      * @return mixed

@@ -87,7 +87,19 @@ class OrderServicesController extends CrudController
 
         $this->validate(request(), $this->storeValidationRules(), $this->messages);
 
-        $service = OrderService::create(request()->all());
+        $data = request()->all();
+        
+        if (isset($data['service_id'])) {
+            $serviceModel = \App\Models\Service::find($data['service_id']);
+            if ($serviceModel) {
+                $data['name'] = $serviceModel->name;
+                if (!isset($data['unit_price'])) {
+                    $data['unit_price'] = $serviceModel->price;
+                }
+            }
+        }
+
+        $service = OrderService::create($data);
         $item = OrderService::find($service->id)->load('service');
 
         return [

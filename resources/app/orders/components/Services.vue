@@ -85,7 +85,7 @@
                                 data-label="Name"
                                 class="t-col t-col-name"
                             >
-                                {{ service.service.name }}
+                                {{ service.name || (service.service && service.service.name) || '' }}
                             </td>
                             <td
                                 data-label="Quantity"
