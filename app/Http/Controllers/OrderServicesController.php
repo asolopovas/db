@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\StatsHelper;
 use App\Models\OrderService;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 class OrderServicesController extends CrudController
 {
