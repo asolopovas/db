@@ -153,12 +153,14 @@ class OrdersController extends Controller
         $order->addStatus(Status::where('name', 'Quote')->firstOrFail());
 
         $order->save();
+        $deliveryService = Service::where('name', 'Delivery')->first();
         (new OrderService(
             [
                 "order_id"   => $order->id,
-                "service_id" => Service::where('name', 'Delivery')->first()->id,
+                "service_id" => $deliveryService->id,
+                "name"       => $deliveryService->name,
                 "quantity"   => 1,
-                "unit_price" => 90,
+                "unit_price" => $deliveryService->price ?? 90,
             ]
         ))->save();
 

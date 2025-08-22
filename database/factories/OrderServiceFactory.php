@@ -27,6 +27,7 @@ class OrderServiceFactory extends Factory
         return [
             'order_id'   => null,
             'service_id' => $service->id,
+            'name'       => $service->name,
             'quantity'   => $this->faker->numberBetween(1, 20),
             'unit_price' => $service->price,
         ];
