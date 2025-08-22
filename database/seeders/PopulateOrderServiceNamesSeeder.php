@@ -3,25 +3,21 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\OrderService;
+use Illuminate\Support\Facades\DB;
 
 class PopulateOrderServiceNamesSeeder extends Seeder
 {
     public function run()
     {
-        $orderServices = OrderService::whereNull('name')
-            ->orWhere('name', '')
-            ->with('service')
-            ->chunk(100, function ($orderServices) {
-                foreach ($orderServices as $orderService) {
-                    if ($orderService->service) {
-                        $orderService->update([
-                            'name' => $orderService->service->name
-                        ]);
-                    }
-                }
-            });
+        $affected = DB::table('order_services')
+            ->join('services', 'order_services.service_id', '=', 'services.id')
+            ->whereNull('order_services.name')
+            ->update(['order_services.name' => DB::raw('services.name')]);
 
-        $this->command->info('OrderService names populated from Service table.');
+        if ($this->command) {
+            $this->command->info("OrderService names populated from Service table. Updated {$affected} records.");
+        } else {
+            echo "OrderMaterial names populated from Material table. Updated {$affected} records.\n";
+        }
     }
 }
