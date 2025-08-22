@@ -44,43 +44,110 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Search**: Algolia integration via Laravel Scout
 - **External APIs**: Xero accounting integration
 
-### Project Structure
-```
-/app                    # Laravel application code
-  /Console             # Artisan commands
-  /Enums               # PHP enums (StatusEnum)
-  /Exceptions          # Custom exceptions
-  /Generators          # Excel and PDF generators
-  /Helpers             # Helper classes (MailerSetup, OrdersHelper, StatsHelper)
-  /Http
-    /Controllers       # HTTP controllers (RESTful resources)
-    /Middleware        # HTTP middleware
-  /Jobs                # Queued jobs (RefreshTokenJob)
-  /Mail                # Mail classes
-  /Models              # Eloquent models
-  /Observers           # Model observers for automatic updates
-  /Policies            # Authorization policies
-  /Providers           # Service providers
-  /Services            # Business logic (XeroService)
-  /Traits              # Reusable traits (OrderAttributes, OrderRelations, XeroSync)
-  /Transformers        # API response transformers
+### Complete Project Structure
 
-/resources
-  /app                 # Vue.js application
-    /components        # Vue components organized by feature
-    /lib               # Utility functions and composables
-    /mixins            # Vue mixins (being phased out for composition API)
-    /orders            # Order-specific components
-    /store             # Vuex store modules
-    /structures        # TypeScript data structures
-  /scss                # SCSS stylesheets
-  /types               # TypeScript type definitions
-  /views               # Blade templates (for PDFs and emails)
-
-/routes
-  /api.php             # API routes (main application routes)
-  /web.php             # Web routes (mostly development/debug routes)
 ```
+/
+├── app/                       # Laravel backend application [See app/CLAUDE.md]
+│   ├── Console/              # Artisan commands and kernel
+│   ├── Enums/                # PHP enums (StatusEnum)
+│   ├── Exceptions/           # Custom exceptions and handlers
+│   ├── Generators/           # Excel and PDF generators
+│   ├── Helpers/              # Helper classes (MailerSetup, OrdersHelper, StatsHelper)
+│   ├── Http/
+│   │   ├── Controllers/      # RESTful API controllers
+│   │   │   ├── Auth/        # Authentication controllers
+│   │   │   └── *.php        # Resource controllers
+│   │   ├── Middleware/      # HTTP middleware
+│   │   └── Kernel.php       # HTTP kernel
+│   ├── Jobs/                 # Queued jobs
+│   ├── Mail/                 # Mailable classes
+│   ├── Models/               # Eloquent ORM models
+│   ├── Observers/            # Model event observers
+│   ├── Policies/             # Authorization policies
+│   ├── Providers/            # Service providers
+│   ├── Services/             # Business logic services (XeroService)
+│   ├── Traits/               # Model traits (OrderAttributes, OrderRelations, XeroSync)
+│   └── Transformers/         # API response transformers
+│
+├── bootstrap/                 # Application bootstrap files
+│   ├── app.php              # Application initialization
+│   └── autoload.php         # Composer autoloader
+│
+├── config/                    # Configuration files [See config/CLAUDE.md]
+│   ├── app.php              # Application config
+│   ├── auth.php             # Authentication config
+│   ├── database.php         # Database connections
+│   ├── jwt.php              # JWT authentication
+│   └── *.php                # Other service configs
+│
+├── database/                  # Database files [See database/CLAUDE.md]
+│   ├── factories/           # Model factories for testing
+│   ├── migrations/          # Database migrations
+│   └── seeds/               # Database seeders
+│
+├── public/                    # Public web root
+│   ├── index.php            # Application entry point
+│   └── build/               # Compiled frontend assets
+│
+├── resources/                 # Resources and frontend
+│   ├── app/                 # Vue.js application [See resources/app/CLAUDE.md]
+│   │   ├── bootstrap/       # Component registration
+│   │   ├── components/      # Vue components
+│   │   ├── lib/            # Utilities and router
+│   │   ├── mixins/         # Vue mixins
+│   │   ├── nav/            # Navigation components
+│   │   ├── notifications/  # Alert components
+│   │   ├── orders/         # Order management components
+│   │   ├── plugins/        # Vue plugins
+│   │   ├── store/          # Vuex state management
+│   │   ├── structures/     # TypeScript interfaces
+│   │   └── *.vue           # Top-level views
+│   ├── scss/                # SCSS stylesheets
+│   ├── types/               # TypeScript definitions
+│   └── views/               # Blade templates
+│
+├── routes/                    # Route definitions [See routes/CLAUDE.md]
+│   ├── api.php              # API routes
+│   └── web.php              # Web routes
+│
+├── storage/                   # Application storage
+│   ├── app/                 # Application files
+│   ├── framework/           # Framework cache
+│   └── logs/                # Application logs
+│
+├── tests/                     # Test suite [See tests/CLAUDE.md]
+│   ├── Feature/             # Feature tests
+│   ├── Unit/                # Unit tests
+│   └── JavaScript/          # Frontend tests
+│
+├── .env                       # Environment variables
+├── .env.example              # Environment template
+├── artisan                   # Laravel CLI
+├── composer.json             # PHP dependencies
+├── package.json              # Node dependencies
+├── phpunit.xml               # PHPUnit config
+├── tailwind.config.js        # Tailwind CSS config
+├── tsconfig.json             # TypeScript config
+├── vite.config.ts            # Vite bundler config
+└── vitest.config.ts          # Vitest test config
+```
+
+### Main Entry Points
+
+#### Backend Entry Points
+- **public/index.php**: Main PHP application entry point
+- **artisan**: CLI tool for Laravel commands
+- **routes/api.php**: API route definitions
+- **app/Http/Kernel.php**: HTTP request handling kernel
+- **app/Console/Kernel.php**: Console command kernel
+
+#### Frontend Entry Points
+- **resources/app/app.ts**: Vue application bootstrap
+- **resources/app/App.vue**: Root Vue component
+- **resources/app/lib/router.ts**: Vue Router configuration
+- **resources/app/store/rootStore.ts**: Vuex store initialization
+- **vite.config.ts**: Build configuration
 
 ### Key Business Domain Concepts
 - **Orders**: Core entity with complex relationships (products, services, materials, payments)
