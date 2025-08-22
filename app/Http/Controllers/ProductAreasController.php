@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductArea;
+use App\Models\Area;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+
 
 class ProductAreasController extends CrudController
 {
@@ -64,7 +66,19 @@ class ProductAreasController extends CrudController
     public function store()
     {
         try {
-            $installation = ProductArea::create(request()->all());
+            $data = request()->all();
+
+            if (isset($data['area_id'])) {
+                $areaModel = Area::find($data['area_id']);
+                if ($areaModel) {
+                    $data['name'] = $areaModel->name;
+                    if (!isset($data['price'])) {
+                        $data['price'] = $areaModel->price;
+                    }
+                }
+            }
+
+            $installation = ProductArea::create($data);
         } catch (\Exception $e) {
             if ($e instanceof QueryException) {
                 return response([
