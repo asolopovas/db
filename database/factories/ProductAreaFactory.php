@@ -22,11 +22,14 @@ class ProductAreaFactory extends Factory
      */
     public function definition()
     {
-
+        $area = Area::factory()->create();
+        
         return [
-            'area_id'    => Area::factory(),
+            'area_id'    => $area->id,
             'product_id' => null,
+            'name'       => $area->name,
             'meterage'   => $this->faker->numberBetween(20, 100),
+            'price'      => $area->price ?? 0,
         ];
     }
 }

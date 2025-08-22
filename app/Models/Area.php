@@ -29,11 +29,6 @@ class Area extends Model
         'price' => 'float',
     ];
 
-    public function productArea()
-    {
-        return $this->hasMany(ProductArea::class);
-    }
-
     /**
      * Get the index name for the model.
      *
