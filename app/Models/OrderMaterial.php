@@ -32,6 +32,7 @@ class OrderMaterial extends Model
     protected $fillable = [
         'order_id',
         'material_id',
+        'name',
         'unit_price',
         'quantity',
     ];
@@ -59,8 +60,7 @@ class OrderMaterial extends Model
      */
     public function scopeWithMeta($query)
     {
-        $query->join('materials', 'order_materials.material_id', '=', 'materials.id')
-            ->addSelect(['materials.name']);
+        return $query;
     }
 
     public function scopeData($query)
@@ -69,13 +69,13 @@ class OrderMaterial extends Model
             ->join('statuses', 'orders.status_id', '=', 'statuses.id')
             ->leftjoin('projects', 'orders.project_id', '=', 'projects.id')
             ->with('customer')
-            ->withMeta()
             ->where('orders.balance', 0)
             ->where('statuses.name', 'Invoice')
             ->select(
                 [
                     'order_materials.unit_price',
                     'order_materials.quantity',
+                    'order_materials.name',
                     'projects.street as pr_street',
                     'projects.postcode as pr_postcode',
                     'orders.id as order_id',

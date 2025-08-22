@@ -57,8 +57,10 @@ class DatabaseSeeder extends Seeder
       $this->call(ProjectsTableSeeder::class);
     }
 
+    $this->call(PopulateOrderMaterialNamesSeeder::class);
+
     $this->setFKCheckOn();
-    Model::reguard;
+    Model::reguard();
   }
 
   private function setFKCheckOff()
