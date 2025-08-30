@@ -50,6 +50,7 @@
 
     tfoot {
         border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
         font-weight: bold;
     }
 
@@ -71,13 +72,4 @@ p {
 
 .text-end {
     text-align: end;
-}
-
-
-.double-border {
-  border-bottom: 1px solid #ccc;
-  padding: 2em;
-  width: 16em;
-  position: relative;
-  margin: 0 auto;
 }

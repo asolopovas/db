@@ -45,7 +45,7 @@
             <td class="text-end">@currency($product->unit_price * $product->wastage)</td>
         </tr>
     </tbody>
-    <tfoot class="bg-gray double-border">
+    <tfoot class="bg-gray">
         <tr>
             <td class="text-end" colspan="4">Sub-Total: @currency($product->price)</td>
         </tr>

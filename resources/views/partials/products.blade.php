@@ -34,7 +34,7 @@
             </tr>
         @endforeach
     </tbody>
-    <tfoot>
+    <tfoot class="bg-gray">
         <tr>
             <td class="text-end" colspan="6">
                 Sub Total: @currency($products->sum('discountedPrice'))

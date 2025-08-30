@@ -5,7 +5,7 @@
     <tbody>
         {{ $body }}
     </tbody>
-    <tfoot>
+    <tfoot class="bg-gray">
         {{ $foot }}
     </tfoot>
 </table>
