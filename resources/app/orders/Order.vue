@@ -108,6 +108,7 @@
             console.error("Failed to download the file:", error)
         }
     }
+
     const view = () => {
         const height = window.screen.availHeight
         const width = window.screen.availWidth / 2
