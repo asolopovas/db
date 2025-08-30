@@ -87,10 +87,12 @@ class SettingsController extends CrudController
         $data = [];
 
         $files         = $this->globalAttachments() ?? [];
+        // Use Europe/London timezone explicitly
+        $tz = new \DateTimeZone('Europe/London');
         $data['files'] = array_map(fn($file) => [
             'name'     => str_replace("docs/", "", $file),
             'size'     => Storage::size($file),
-            'modified' => \DateTime::createFromFormat("U", Storage::lastModified($file))->setTimezone(new \DateTimeZone('Europe/Kiev'))->format('d M Y H:i:s'),
+            'modified' => \DateTime::createFromFormat("U", Storage::lastModified($file))->setTimezone($tz)->format('d M Y H:i:s'),
         ], $files);
 
         $settings = Setting::all();
@@ -98,7 +100,9 @@ class SettingsController extends CrudController
         foreach ($settings as $setting) {
             if ($setting->type === 'file' && Storage::disk('local')->exists($setting->value)) {
                 $data[$setting->name] = [
-                    'lastModified' => date('d M Y H:i:s', Storage::disk('local')->lastModified($setting->value)),
+                    'lastModified' => \DateTime::createFromFormat('U', Storage::disk('local')->lastModified($setting->value))
+                        ->setTimezone($tz)
+                        ->format('d M Y H:i:s'),
                     'size'         => Storage::size($setting->value),
                 ];
             } else {
