@@ -14,7 +14,8 @@ class PopulateOrderPartialsSeeder extends Seeder
         $this->call([
             PopulateOrderServiceNamesSeeder::class,
             PopulateOrderMaterialNamesSeeder::class,
-            PopulateProductAreaNamesSeeder::class
+            PopulateProductAreaNamesSeeder::class,
+            PopulateOrderIdsSeeder::class,
         ]);
     }
 }
