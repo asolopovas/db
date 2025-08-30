@@ -326,7 +326,7 @@ class OrderTransformer
         return $this->map($orders, function ($order) {
             return [
                 'id'             => $order->id,
-                'order_id'       => $order->order_id,
+                'base_order_id'  => $order->base_order_id,
                 'customer'       => $order->title . " " . $order->customer->fullName,
                 'status'         => $order->status,
                 'address'        => $order->address,

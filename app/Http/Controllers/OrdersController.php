@@ -136,9 +136,9 @@ class OrdersController extends Controller
         if (array_key_exists('status_id', $data) && $data['status_id']) {
             $newStatus = Status::find($data['status_id']);
             if ($newStatus && $newStatus->name === 'Invoice') {
-                $current = (string)($order->order_id ?? '');
+                $current = (string)($order->base_order_id ?? '');
                 $base = preg_replace('/-\d+$/', '', $current);
-                $order->order_id = $base !== '' ? $base : (string)$order->id;
+                $order->base_order_id = $base !== '' ? $base : (string)$order->id;
                 $order->save();
             }
         }
@@ -171,7 +171,7 @@ class OrdersController extends Controller
 
         $order->save();
         // Initialize display order identifier to the numeric id
-        $order->order_id = (string)$order->id;
+        $order->base_order_id = (string)$order->id;
         $order->save();
         $deliveryService = Service::where('name', 'Delivery')->first();
         (new OrderService(
@@ -527,7 +527,7 @@ class OrdersController extends Controller
             $sourceBase = preg_replace('/-\d+$/', '', $sourceBase);
             $existingCount = Order::where('order_id', 'like', $sourceBase . '-%')->count();
             $nextIndex = $existingCount + 1;
-            $order->order_id = $sourceBase . '-' . $nextIndex;
+            $order->base_order_id = $sourceBase . '-' . $nextIndex;
             $order->save();
 
             // Clone Products with Areas
