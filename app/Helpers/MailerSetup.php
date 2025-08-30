@@ -46,7 +46,6 @@ trait MailerSetup
         $emails = [
             'to'  => $customer->email1,
             'cc'  => array_filter(merge($data['cc'], $customer->email2, $customer->email3)),
-            'bcc' => ['info@3oak.co.uk'],
         ];
 
         foreach ($emails as $location => $value) {
