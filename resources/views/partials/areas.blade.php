@@ -47,11 +47,11 @@
     </tbody>
     <tfoot class="bg-gray">
         <tr>
-            <td class="text-end" colspan="4">Sub-Total: @currency($product->price)</td>
+            <td class="text-end pb-0" colspan="4">Sub-Total: @currency($product->price)</td>
         </tr>
         @if ($product->discount)
         <tr>
-            <td class="text-end" colspan="4">Discount Applied: @currency($product->discountedPrice)</td>
+            <td class="text-end pb-0" colspan="4">Discount Applied: @currency($product->discountedPrice)</td>
         </tr>
         @endif
     </tfoot>

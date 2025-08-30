@@ -1,12 +1,12 @@
 @use "./bootstrap.min.css" as *;
 
 #print-area {
-    position:   relative;
-    top:        1cm;
-    left:       1cm;
-    width:      21cm;
-    height:     29.7cm;
-    font-family:    'Times New Roman', Times, serif;
+    position: relative;
+    top: 1cm;
+    left: 1cm;
+    width: 21cm;
+    height: 29.7cm;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 #footer-area {
@@ -33,11 +33,6 @@
         vertical-align: top;
     }
 
-    th {
-        padding-top: 6px;
-        padding-bottom: 0px;
-        vertical-align: middle;
-    }
 
     td {
         padding-top: 6px;
@@ -46,6 +41,14 @@
 
     thead {
         background-color: #e0e0e0;
+
+        th {
+            border-top: 1px solid #c4c4c4;
+            border-bottom: 1px solid #c4c4c4;
+            padding-top: 6px;
+            padding-bottom: 0px;
+            vertical-align: middle;
+        }
     }
 
     tfoot {
@@ -55,6 +58,7 @@
     }
 
     &.table-bordered {
+
         td,
         th {
             border: none;

@@ -72,7 +72,7 @@
             {
                 "label": "refresh-db",
                 "type": "shell",
-                "command": "dsync -d",
+                "command": "dsync -d && php artisan migrate && php artisan db:seed --class=PopulateOrderPartialsSeeder",
                 "presentation": {
                     "reveal": "always",
                 },

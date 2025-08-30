@@ -31,7 +31,7 @@
         </tbody>
         <tfoot class="bg-gray">
           <tr>
-            <td colspan="4" class="text-end">
+            <td colspan="4" class="text-end pb-0">
               Sub Total: @currency($items->sum('price'))
             </td>
           </tr>
