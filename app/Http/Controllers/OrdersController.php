@@ -546,7 +546,6 @@ class OrdersController extends Controller
 
                 foreach ($product->areas as $area) {
                     ProductArea::create([
-                        'order_id'   => $order->id,
                         'area_id'    => $area->area_id,
                         'product_id' => $newProduct->id,
                         'name'       => $area->name,
