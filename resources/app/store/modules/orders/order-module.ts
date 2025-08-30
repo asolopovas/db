@@ -13,6 +13,7 @@ const state: OrderState = {
     created_at: undefined,
     id: undefined,
     balance: undefined,
+    base_order_id: undefined,
     cc: undefined,
     city: undefined,
     company: undefined,
