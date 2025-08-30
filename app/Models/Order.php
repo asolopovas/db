@@ -113,7 +113,7 @@ class Order extends Model
             'customer'       => "{$this->title} {$this->customer->fullName}",
             'status'         => $this->status->name,
             'address'        => $this->address,
-            'date'           => $this->created_at,
+            'date'           => $this->created_at->format('d/m/Y'),
             'notes'          => $this->notes,
             'grand_total'    => $this->grand_total,
             'photo_request'  => $this->photo_request ? $this->photo_request : null,
