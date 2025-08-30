@@ -13,7 +13,7 @@
             class="page-button page-prev p-3 cursor-pointer"
             :class="{ 'cursor-not-allowed': !prevPage }"
             aria-label="Previous"
-            @click.prevent="prevPage ?? go(prevPage)"
+            @click.prevent="prevPage && go(prevPage)"
         >
             &#10096;
         </a>
@@ -31,7 +31,7 @@
             class="page-button page-next cursor-pointer px-4 py-3"
             :class="{ 'cursor-not-allowed': !nextPage }"
             aria-label="Next"
-            @click.prevent="nextPage ?? go(nextPage)"
+            @click.prevent="nextPage && go(nextPage)"
         >
             &#10097;
         </a>
