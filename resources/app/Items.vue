@@ -36,9 +36,10 @@
             @no="confirmation = false"
             @yes="remove"
         >
-            {{ selectedItems.length > 0 ? 
-                `Do you wish to delete ${selectedItems.length} selected items?` : 
-                'Do you wish to delete this item?' 
+            {{
+                selectedItems.length > 0
+                    ? `Do you wish to delete ${selectedItems.length} selected items?`
+                    : "Do you wish to delete this item?"
             }}
         </modal>
         <!-- New Item Modal -->
@@ -81,13 +82,19 @@
                 <table>
                     <thead>
                         <tr class="bg-white">
-                            <th scope="col" class="t-col w-12">
-                                <input
-                                    type="checkbox"
-                                    :checked="isAllSelected"
-                                    @change="toggleSelectAll"
-                                    class="rounded"
-                                />
+                            <th
+                                scope="col"
+                                class="t-col w-12 text-center align-middle"
+                            >
+                                <div class="w-full h-full flex justify-center items-center">
+                                    <input
+                                        name="select-all"
+                                        type="checkbox"
+                                        :checked="isAllSelected"
+                                        @change="toggleSelectAll"
+                                        class="rounded h-5 w-5"
+                                    />
+                                </div>
                             </th>
                             <th
                                 v-for="key in tableKeys"
@@ -111,13 +118,16 @@
                             v-for="item in itemsAggregate"
                             :key="item.id"
                         >
-                            <td class="t-col w-12">
-                                <input
-                                    type="checkbox"
-                                    :value="item.id"
-                                    v-model="selectedItems"
-                                    class="rounded"
-                                />
+                            <td class="t-col w-12 h-12">
+                                <div class="w-full h-full flex justify-center items-center">
+                                    <input
+                                        name="select-item"
+                                        class="rounded h-5 w-5"
+                                        type="checkbox"
+                                        :value="item.id"
+                                        v-model="selectedItems"
+                                    />
+                                </div>
                             </td>
                             <td
                                 v-for="key in tableKeys"
@@ -155,7 +165,7 @@
                         </tr>
                         <tr v-if="!items.length">
                             <td
-                                colspan="10"
+                                :colspan="tableKeys.length + 2"
                                 class="text-center text-capitalize text-uppercase font-bold"
                             >
                                 Sorry No Records Found
@@ -186,6 +196,7 @@
     import getStructure from "@root/resources/app/lib/struct"
     import useIndexView from "@app/mixins/indexView.ts"
     import Item from "@app/Item.vue"
+    import { table } from "console"
     // Core
     const store = useStore()
     const router = useRouter()
@@ -227,8 +238,8 @@
     const tableKeys = computed(() =>
         columns.value ? Object.keys(columns.value) : Object.keys(structure.value.fields)
     )
-    const isAllSelected = computed(() =>
-        items.value.length > 0 && selectedItems.value.length === items.value.length
+    const isAllSelected = computed(
+        () => items.value.length > 0 && selectedItems.value.length === items.value.length
     )
 
     // Functions
@@ -242,7 +253,7 @@
         itemClone.value = {}
         selectedItems.value = []
     }
-    
+
     const toggleSelectAll = () => {
         if (isAllSelected.value) {
             selectedItems.value = []
@@ -250,7 +261,7 @@
             selectedItems.value = items.value.map((item: any) => item.id)
         }
     }
-    
+
     const confirmBulkDelete = () => {
         confirmation.value = true
     }
