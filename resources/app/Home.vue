@@ -1,7 +1,9 @@
 <template>
     <main-layout>
         <template #options>
-            <div class="flex flex-wrap items-center gap-4 px-3 text-white">
+            <div
+                v-if="isAdmin"
+            class="flex flex-wrap items-center gap-4 px-3 text-white">
                 <div
                     v-for="(value, label) in totals"
                     :key="label"
@@ -12,6 +14,7 @@
                 </div>
             </div>
             <base-button
+                v-if="isAdmin"
                 class="btn-action bg-yellow-200"
                 @click="showCharts = !showCharts"
             >
