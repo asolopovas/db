@@ -55,7 +55,7 @@
                 >
             </div>
         </template>
-        <div class="w-full max-w-[1200px] mx-auto">
+        <div class="w-full max-w-[1366px] mx-auto">
             <div class="px-4 overflow-auto w-full">
                 <table class="md:table-auto">
                     <thead>
@@ -141,6 +141,7 @@
     }
     const ordersView = {
         id: { class: "t-col t-col-id uppercase" },
+        base_id: { class: "t-col t-col-id uppercase" },
         date: {
             sort: "created_at",
             class: "t-col t-col-date",

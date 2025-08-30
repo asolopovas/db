@@ -522,14 +522,6 @@ class OrdersController extends Controller
             $order->addStatus(Status::where('name', 'Quote')->firstOrFail());
             $order->save();
 
-            // Set order_id to original's base id with incremented suffix -{n}
-            $sourceBase = (string)($source->order_id ?: $source->id);
-            $sourceBase = preg_replace('/-\d+$/', '', $sourceBase);
-            $existingCount = Order::where('order_id', 'like', $sourceBase . '-%')->count();
-            $nextIndex = $existingCount + 1;
-            $order->base_order_id = $sourceBase . '-' . $nextIndex;
-            $order->save();
-
             // Clone Products with Areas
             foreach ($source->products as $product) {
                 $newProduct = Product::create([
