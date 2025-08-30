@@ -19,18 +19,19 @@ export function notificationStyle(code: string): string | null {
     return null
 }
 
-
 export function fixedNum(value: any) {
     return (value === null || value === undefined)
         ? null
         : Number(value).toFixed(2)
 }
+
 export const currency = (value: any) =>
     new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(value || 0)
 
 export function dateFormat(date: string, options: string = 'ccc dd MMM yyyy') {
     return date ? format(Date.parse(date), options) : date
 }
+
 export function extractIds(ids: string[], container: any) {
     if (!isObject(container)) console.error('Argument container must be an object')
     for (const id of ids) {
@@ -40,10 +41,13 @@ export function extractIds(ids: string[], container: any) {
         }
     }
 }
+
 type Child = Record<string, any>
 type Children = Record<string, Child>
+
 export const flattenChildren = (children: Children): Child =>
     Object.values(children).reduce((acc, child) => ({ ...acc, ...child }), {})
+
 export const extractDiff = (src: any, target: any) => {
     const diff = Object.keys({ ...src, ...target }).reduce((acc, key) => {
         if (!isEqual(src[key], target[key])) acc[key] = target[key]
@@ -83,7 +87,6 @@ export const aggregateData = (data: any, interval: number) => {
     return { labels, ordersArray, materialsArray, expensesArray }
 }
 
-
 export const getAggregatedItem = (item: any, mapValues: { [key: string]: string[] }) => {
 
     return Object.fromEntries(
@@ -100,6 +103,7 @@ export const getAggregatedItem = (item: any, mapValues: { [key: string]: string[
         ])
     )
 }
+
 export function isEmptyObj(obj: Record<string, any>, skip: string[] = []): boolean {
     const notEmpty: string[] = []
     for (const key in obj) {
@@ -115,7 +119,6 @@ export function isEmptyObj(obj: Record<string, any>, skip: string[] = []): boole
     }
     return notEmpty.length === 0
 }
-
 
 export function joinPropValue(obj: any, props: any, divider: string = ' ') {
     const arr = []
@@ -162,6 +165,7 @@ export function setDescendantProp(obj: any, desc: string, value: any) {
     }
     obj[arr[0]] = value
 }
+
 export function validate(object: any, rules: any) {
     const failedRules = []
     for (const rule of rules) {
