@@ -46,6 +46,7 @@ Route::get('orders/{id}/footer-html', [OrdersController::class, 'footerHtml']);
 Route::get('orders/{id}/reverse-charge-html', [OrdersController::class, 'viewReverseChargeHtml']);
 Route::get('orders/{id}/download', [OrdersController::class, 'download']);
 Route::post('orders/{id}/send', [OrdersController::class, 'send']);
+Route::post('orders/{id}/duplicate', [OrdersController::class, 'duplicate']);
 Route::resource('orders', OrdersController::class);
 
 Route::get('attachments', [SettingsController::class, 'orderAttachments']);
