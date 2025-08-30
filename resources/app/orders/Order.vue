@@ -37,6 +37,12 @@
                 >
                     <EditIcon />
                 </base-button>
+                <base-button
+                    class="btn-action bg-indigo-600"
+                    @click="duplicate"
+                >
+                    <CopyIcon />
+                </base-button>
             </div>
         </td>
     </tr>
@@ -51,6 +57,7 @@
     import DownloadIcon from "@icons/download.svg?component"
     import ViewIcon from "@icons/view.svg?component"
     import EditIcon from "@icons/edit.svg?component"
+    import CopyIcon from "@icons/svgs/fi-page-copy.svg?component"
     import DeleteIcon from "@icons/delete.svg?component"
 
     const router = useRouter()
@@ -114,4 +121,17 @@
     }
 
     const emit = defineEmits(["deleteOrder", "loading"])
+
+    const duplicate = async () => {
+        try {
+            const response = await apiFetch(`/api/orders/${item.id}/duplicate`, { method: 'POST' })
+            // Prefer item.id in response, fallback if structure differs
+            const newId = (response as any)?.data?.item?.id || (response as any)?.data?.id
+            if (newId) {
+                router.push({ path: `/orders/${newId}/details` })
+            }
+        } catch (error) {
+            console.error('Failed to duplicate order:', error)
+        }
+    }
 </script>

@@ -63,7 +63,7 @@
                                 data-label="Name"
                                 class="t-col t-col-name"
                             >
-                                {{ material.material.name }}
+                                {{ material.name || '' }}
                             </td>
                             <td
                                 data-label="Quantity"
@@ -130,7 +130,7 @@
 
     interface Material {
         id: string
-        material: { name: string }
+        name: string
         quantity: number
         unit_price: number
         price: number

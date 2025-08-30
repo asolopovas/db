@@ -240,6 +240,12 @@
                             >
                                 Save
                             </base-button>
+                            <base-button
+                                class="btn-action bg-indigo-600 hover:bg-indigo-700 text-white col-span-2"
+                                @click="duplicateOrder"
+                            >
+                                Duplicate
+                            </base-button>
                         </div>
                     </div>
                 </div>
@@ -410,5 +416,16 @@
         const query = [order.customer.firstname, order.customer.lastname].filter(Boolean).join(" ")
 
         router.push({ name: "orders", query: { search: query } })
+    }
+
+    async function duplicateOrder() {
+        try {
+            const id = store.state.order.id
+            const response = await apiFetch(`/api/orders/${id}/duplicate`, { method: 'POST' })
+            const newId = (response as any)?.data?.item?.id || (response as any)?.data?.id
+            if (newId) router.push({ path: `/orders/${newId}/details` })
+        } catch (error) {
+            console.error('Failed to duplicate order:', error)
+        }
     }
 </script>

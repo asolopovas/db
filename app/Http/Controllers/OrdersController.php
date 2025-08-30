@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Order, OrderService, Service, Status};
 use App\Helpers\MailerSetup;
 use App\Helpers\OrdersHelper;
 use App\Helpers\StatsHelper;
-use App\Mail\OrderMailed;
 use App\Mail\OrderMail;
 use App\Mail\RequestMail;
 use App\Generators\HtmlPdfGenerator;
@@ -14,8 +12,16 @@ use App\Generators\ExcelGenerator;
 use App\Traits\OrderDataBuilder;
 use App\Transformers\OrderTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\{Mail, Storage, DB};
+use App\Models\{
+    Product,
+    ProductArea,
+    OrderMaterial,
+    OrderService,
+    Order,
+    Service,
+    Status
+};
 
 class OrdersController extends Controller
 {
@@ -456,5 +462,108 @@ class OrdersController extends Controller
             "type"    => "Success",
             "message" => "Order successfully sent to customer's email...",
         ];
+    }
+
+    /**
+     * Duplicate an order with its products, services and materials
+     *
+     * @param int $id
+     * @return array
+     * @throws \Throwable
+     */
+    public function duplicate($id)
+    {
+        return DB::transaction(function () use ($id) {
+            $source = Order::with([
+                'products.areas',
+                'orderServices',
+                'orderMaterials',
+                'customer',
+                'company',
+                'project',
+            ])->findOrFail($id);
+
+            $order = new Order();
+            $order->user_id = auth()->id();
+            $order->company_id = $source->company_id;
+            $order->customer_id = $source->customer_id;
+            $order->project_id = $source->project_id;
+            $order->cc = $source->cc;
+            $order->mail_message = $source->mail_message;
+            $order->proforma_message = $source->proforma_message;
+            $order->payment_terms = $source->payment_terms;
+            $order->notes = $source->notes;
+            $order->proforma = $source->proforma;
+            $order->proforma_breakdown = $source->proforma_breakdown;
+            $order->reverse_charge = $source->reverse_charge;
+            $order->vat = $source->vat;
+            $order->due = $source->due;
+            $order->due_amount = $source->due_amount;
+            $order->discount = $source->discount;
+            $order->sent = null;
+            $order->payment_date = null;
+            $order->date_due = null;
+
+            // Reset status to Quote
+            $order->addStatus(Status::where('name', 'Quote')->firstOrFail());
+            $order->save();
+
+            // Clone Products with Areas
+            foreach ($source->products as $product) {
+                $newProduct = Product::create([
+                    'order_id'      => $order->id,
+                    'floor_id'      => $product->floor_id,
+                    'extra_id'      => $product->extra_id,
+                    'dimension_id'  => $product->dimension_id,
+                    'grade_id'      => $product->grade_id,
+                    'wastage_rate'  => $product->wastage_rate,
+                    'discount'      => $product->discount,
+                    'meterage'      => $product->meterage,
+                    'unit_price'    => $product->unit_price,
+                ]);
+
+                foreach ($product->areas as $area) {
+                    ProductArea::create([
+                        'order_id'   => $order->id,
+                        'area_id'    => $area->area_id,
+                        'product_id' => $newProduct->id,
+                        'name'       => $area->name,
+                        'meterage'   => $area->meterage,
+                    ]);
+                }
+            }
+
+            // Clone Services
+            foreach ($source->orderServices as $service) {
+                OrderService::create([
+                    'order_id'   => $order->id,
+                    'service_id' => $service->service_id,
+                    'name'       => $service->name,
+                    'unit_price' => $service->unit_price,
+                    'quantity'   => $service->quantity,
+                ]);
+            }
+
+            // Clone Materials
+            foreach ($source->orderMaterials as $material) {
+                OrderMaterial::create([
+                    'order_id'   => $order->id,
+                    'material_id' => $material->material_id,
+                    'name'       => $material->name,
+                    'unit_price' => $material->unit_price,
+                    'quantity'   => $material->quantity,
+                ]);
+            }
+
+            // Recalculate sums
+            $order->load(['products', 'orderServices', 'orderMaterials']);
+            $order->updateOrderSums();
+
+            return [
+                'type'    => 'Success',
+                'message' => 'Order duplicated successfully.',
+                'item'    => $order->load($this->relations)->setAppends(['paid', 'dueNow']),
+            ];
+        });
     }
 }
