@@ -2,7 +2,7 @@
 <x-mail::layout>
     {{-- Header --}}
     <x-slot:header>
-        <x-mail::header url="https://woodlandflooring.co.uk">
+        <x-mail::header url="https://3oak.co.uk">
             <img
                 src="https://{{config('app.url')}}/img/logo.png"
                 alt="Logo"

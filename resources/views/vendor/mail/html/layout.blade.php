@@ -76,9 +76,9 @@
                                             {{ $user->name }}<br>{{ $user->title }}
                                         </p>
                                         <p>
-                                            143 Woodland Drive<br>
-                                            Watford, England<br>
-                                            WD17 3DA
+                                            219 Northfield Avenue<br>
+                                            London, England<br>
+                                            W13 9QU
                                         </p>
                                         <p>
                                             @if ($user->phone)
@@ -88,9 +88,9 @@
                                                 Mobile: {{ $user->mobile }}<br>
                                             @endif
                                             <a
-                                                href="mailto:info@woodlandflooring.co.uk">info@woodlandflooring.co.uk</a><br>
+                                                href="mailto:info@3oak.co.uk">info@3oak.co.uk</a><br>
                                             <a
-                                                href="https://woodlandflooring.co.uk">https://woodlandflooring.co.uk</a>
+                                                href="https://3oak.co.uk">https://3oak.co.uk</a>
                                         </p>
                                         {{ $subcopy ?? '' }}
                                     </td>
