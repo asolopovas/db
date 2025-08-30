@@ -41,6 +41,7 @@ class OrderMail extends Mailable
 
         return new Envelope(
             from: new Address('info@3oak.co.uk', '3 Oak'),
+            to: $this->orderData['order']->customer->email1,
             subject: $subject
         );
     }
@@ -73,11 +74,6 @@ class OrderMail extends Mailable
     public function attachments()
     {
         $attachments = [];
-
-        // Attach inline logo
-        // $attachments[] = Attachment::fromPath(public_path('img/logo.png'))
-        //     ->as('logo.png')
-        //     ->withMime('image/png');
 
         // Attach files from storage
         $files = array_filter(Storage::files('docs'), function ($file) {
