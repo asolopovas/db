@@ -2,7 +2,9 @@
 <x-mail::layout>
     {{-- Header --}}
     <x-slot:header>
+        {{config('app.url')}}
         {{-- <x-mail::header url="https://3oak.co.uk">
+
             <img
                 src="https://{{config('app.url')}}/img/logo.png"
                 alt="Logo"
