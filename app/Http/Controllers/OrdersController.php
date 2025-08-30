@@ -131,6 +131,17 @@ class OrdersController extends Controller
     {
         $data = $request->all();
         $order->update($data);
+
+        // If status changed to Invoice, strip duplicate suffix from order_id
+        if (array_key_exists('status_id', $data) && $data['status_id']) {
+            $newStatus = Status::find($data['status_id']);
+            if ($newStatus && $newStatus->name === 'Invoice') {
+                $current = (string)($order->order_id ?? '');
+                $base = preg_replace('/-\d+$/', '', $current);
+                $order->order_id = $base !== '' ? $base : (string)$order->id;
+                $order->save();
+            }
+        }
         $order->updateOrderSums();
 
         return [
@@ -158,6 +169,9 @@ class OrdersController extends Controller
         $order->addCustomer($data['customer_id']);
         $order->addStatus(Status::where('name', 'Quote')->firstOrFail());
 
+        $order->save();
+        // Initialize display order identifier to the numeric id
+        $order->order_id = (string)$order->id;
         $order->save();
         $deliveryService = Service::where('name', 'Delivery')->first();
         (new OrderService(
@@ -506,6 +520,14 @@ class OrdersController extends Controller
 
             // Reset status to Quote
             $order->addStatus(Status::where('name', 'Quote')->firstOrFail());
+            $order->save();
+
+            // Set order_id to original's base id with incremented suffix -{n}
+            $sourceBase = (string)($source->order_id ?: $source->id);
+            $sourceBase = preg_replace('/-\d+$/', '', $sourceBase);
+            $existingCount = Order::where('order_id', 'like', $sourceBase . '-%')->count();
+            $nextIndex = $existingCount + 1;
+            $order->order_id = $sourceBase . '-' . $nextIndex;
             $order->save();
 
             // Clone Products with Areas

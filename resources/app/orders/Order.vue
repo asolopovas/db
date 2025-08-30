@@ -80,9 +80,13 @@
     const token = computed(() => store.state.auth.access_token)
 
     const applyFilter = (value: any, field: string) => {
+        // For ID column, display the human-readable order_id if available
+        if (field === 'id' && (props.item as any)?.order_id) {
+            return (props.item as any).order_id
+        }
         if (props.filters.hasOwnProperty(field)) {
-            const filterName = props.filters[field]
-            return filters[filterName](value)
+            const filterName = (props.filters as any)[field]
+            return (filters as any)[filterName](value)
         }
         return value
     }
