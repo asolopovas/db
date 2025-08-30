@@ -42,7 +42,7 @@
         <td style="width:50%;">
             <table style="width: 100%; text-align:right; float:right;">
                 <tr>
-                    <td class="pr-2 pb-2"><b>Order Number:</b> {{ str_pad($order->order_id, 4, "0", STR_PAD_LEFT) }}</td>
+                    <td class="pr-2 pb-2"><b>Order Number:</b> {{ str_pad($order->id, 4, "0", STR_PAD_LEFT) }}</td>
                 </tr>
                 <tr>
                     <td class="pr-2 pb-2"><b>Date: </b>{{ $order->updated_at->format('d M Y') }}</td>
