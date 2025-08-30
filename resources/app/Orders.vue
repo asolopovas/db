@@ -93,6 +93,8 @@
                     </tbody>
                 </table>
                 <pagination
+                    v-if="storePagination.last_page && storePagination.current_page"
+                    :key="storePagination.current_page + '-' + storePagination.last_page"
                     class="w-full justify-end py-2 bg-neutral-100"
                     :click-handler="pageSwitch"
                     :per-slice="5"
@@ -115,7 +117,7 @@
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
-    const storePagination = store.state.pagination
+    const storePagination = computed(() => store.state.pagination)
 
     const { pageSwitch, fetchData } = useIndexView()
 
