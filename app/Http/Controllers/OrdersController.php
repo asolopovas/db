@@ -498,6 +498,7 @@ class OrdersController extends Controller
             ])->findOrFail($id);
 
             $order = new Order();
+            $order->base_id = $id;
             $order->user_id = auth()->id();
             $order->company_id = $source->company_id;
             $order->customer_id = $source->customer_id;
