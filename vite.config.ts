@@ -20,9 +20,7 @@ export default defineConfig({
             refresh: true,
         }),
         vue(),
-        svgLoader({
-            defaultImport: 'url' // or 'raw'
-        }),
+        svgLoader(),
     ],
     resolve: {
         alias: {

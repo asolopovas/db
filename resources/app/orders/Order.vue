@@ -54,11 +54,11 @@
     import { filters } from "@root/resources/app/lib/global-helpers"
     import { startCase } from "lodash-es"
     import apiFetch from "@root/resources/app/lib/apiFetch"
-    import DownloadIcon from "@icons/download.svg?component"
-    import ViewIcon from "@icons/view.svg?component"
-    import EditIcon from "@icons/edit.svg?component"
-    import CopyIcon from "@icons/svgs/fi-page-copy.svg?component"
-    import DeleteIcon from "@icons/delete.svg?component"
+    import DownloadIcon from "@icons/download.svg"
+    import ViewIcon from "@icons/view.svg"
+    import EditIcon from "@icons/edit.svg"
+    import CopyIcon from "@icons/svgs/fi-page-copy.svg"
+    import DeleteIcon from "@icons/delete.svg"
 
     const router = useRouter()
     const store = useStore()
