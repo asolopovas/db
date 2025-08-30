@@ -92,10 +92,10 @@ class ProductAreasController extends CrudController
         $item = ProductArea::find($installation->id)
             ->load('area');
 
-        return [
+        return response([
             'type' => 'success',
             'message' => 'Product Area Successfully Created',
             'item' => $item,
-        ];
+        ]);
     }
 }
