@@ -4,7 +4,7 @@
     <x-slot:header>
         <x-mail::header url="https://3oak.co.uk">
             <img
-                src="https://{{config('app.url')}}/img/logo.png"
+                src="https://{{config('app.url')}}/img/db-logo.png"
                 alt="Logo"
                 style="max-width: 320px;"
             >
