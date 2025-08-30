@@ -27,10 +27,21 @@
     td,
     th {
         border-top: 0;
-        border: none;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
+        border-bottom: 0;
+        border-right: 0;
+        border-left: 0;
         vertical-align: top;
+    }
+
+    th {
+        padding-top: 6px;
+        padding-bottom: 0px;
+        vertical-align: middle;
+    }
+
+    td {
+        padding-top: 6px;
+        padding-bottom: 6px;
     }
 
     thead {
@@ -43,7 +54,6 @@
     }
 
     &.table-bordered {
-
         td,
         th {
             border: none;
@@ -70,15 +80,4 @@ p {
   width: 16em;
   position: relative;
   margin: 0 auto;
-}
-
-.double-border::before {
-  background: none;
-  border-bottom: 1px solid #ccc;
-  content: "";
-  width: 100%;
-  display: block;
-  position: absolute;
-  bottom: 4px;
-  pointer-events: none;
 }
