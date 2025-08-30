@@ -15,7 +15,6 @@ class PopulateOrderPartialsSeeder extends Seeder
             PopulateOrderServiceNamesSeeder::class,
             PopulateOrderMaterialNamesSeeder::class,
             PopulateProductAreaNamesSeeder::class,
-            PopulateOrderIdsSeeder::class,
         ]);
     }
 }
