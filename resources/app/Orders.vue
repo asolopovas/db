@@ -141,7 +141,7 @@
     }
     const ordersView = {
         id: { class: "t-col t-col-id uppercase" },
-        base_id: { class: "t-col t-col-id uppercase" },
+        base_id: { class: "t-col t-col-id w-[80px] uppercase" },
         date: {
             sort: "created_at",
             class: "t-col t-col-date",
