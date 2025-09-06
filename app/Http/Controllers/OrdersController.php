@@ -194,9 +194,6 @@ class OrdersController extends Controller
         ];
     }
 
-    /**
-     * @throws \Exception
-     */
     public function exportTaxDeductedOrders()
     {
         $ordersHelper = new OrdersHelper;
@@ -243,11 +240,6 @@ class OrdersController extends Controller
         return $generator->bodyHtml();
     }
 
-    /**
-     * @param Order $order
-     *
-     * @return mixed
-     */
     public function relatedIds(Order $order)
     {
         $customer = $order->customer;
@@ -259,9 +251,6 @@ class OrdersController extends Controller
         );
     }
 
-    /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
     public function stats()
     {
         $relations = [
@@ -284,16 +273,6 @@ class OrdersController extends Controller
         return $this->transformer->orderStats($orders);
     }
 
-
-
-    /**
-     * Download Order PDF
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\Response
-     * @throws \Throwable
-     */
     public function download($id)
     {
         $generator = new HtmlPdfGenerator($id);
@@ -303,14 +282,6 @@ class OrdersController extends Controller
         );
     }
 
-    /**
-     * Generates PDF view of Invoice
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     * @throws \Throwable
-     */
     public function pdf($id)
     {
 
@@ -321,12 +292,6 @@ class OrdersController extends Controller
         );
     }
 
-
-    /**
-     * @param $id
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
     public function reverseChargePdf($id)
     {
 
@@ -335,11 +300,7 @@ class OrdersController extends Controller
 
         return response()->file($filePath);
     }
-    /**
-     * @param $id
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
+
     public function viewPdf($id)
     {
         $generator = new HtmlPdfGenerator($id);
@@ -348,9 +309,6 @@ class OrdersController extends Controller
         return response()->file($filePath);
     }
 
-    /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
     public function notesView()
     {
         $orders = Order::joinStatusName()->with(['project', 'customer'])->select(
@@ -364,12 +322,6 @@ class OrdersController extends Controller
         return $this->transformer->notesView($orders);
     }
 
-    /**
-     * @param $id
-     * @param $requestType
-     *
-     * @return string[]
-     */
     public function sendRequest($id, $requestType)
     {
 
@@ -395,14 +347,6 @@ class OrdersController extends Controller
         ];
     }
 
-    /**
-     * Sends Order to customers email
-     *
-     * @param $id
-     *
-     * @return array
-     * @throws \Throwable
-     */
     public function send($id)
     {
         $generator = new HtmlPdfGenerator($id);
