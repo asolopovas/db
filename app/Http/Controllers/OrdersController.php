@@ -58,11 +58,6 @@ class OrdersController extends Controller
         'taxDeductions',
     ];
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
     public function index()
     {
         $orderBy = request()->get('orderBy', 'updated_at,desc');
@@ -107,26 +102,11 @@ class OrdersController extends Controller
     }
 
 
-    /**
-     * Show a single order
-     *
-     * @param Order $order
-     *
-     * @return Order
-     */
     public function show(Order $order)
     {
         return $order->load($this->relations)->setAppends(['paid', 'dueNow']);
     }
 
-    /**
-     * Update order
-     *
-     * @param Order   $order
-     * @param Request $request
-     *
-     * @return array
-     */
     public function update(Order $order, Request $request)
     {
         $data = $request->all();
@@ -151,13 +131,6 @@ class OrdersController extends Controller
         ];
     }
 
-    /**
-     * Create New Order
-     *
-     * @param Request $request
-     *
-     * @return Order
-     */
     public function store(Request $request)
     {
         $order = new Order;
@@ -187,14 +160,6 @@ class OrdersController extends Controller
         return $order;
     }
 
-    /**
-     * Delete Order
-     *
-     * @param Order $order
-     *
-     * @return array
-     * @throws \Exception
-     */
     public function destroy(Order $order)
     {
         $order->delete();
@@ -205,11 +170,6 @@ class OrdersController extends Controller
         ];
     }
 
-    /**
-     * Gets orders totals
-     *
-     * @return array
-     */
     public function totals()
     {
 
@@ -249,11 +209,6 @@ class OrdersController extends Controller
         return false;
     }
 
-    /**
-     * Exports Complete Orders Statistics
-     *
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
-     */
     public function exportCommissionsData()
     {
         $generator = (new StatsHelper())->commissionsData();
@@ -271,14 +226,6 @@ class OrdersController extends Controller
         $generator = new HtmlPdfGenerator($id);
         return $generator->footerHtml();
     }
-    /**
-     * Generates HTML view of Invoice
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
-     */
     public function viewDefaultHtml($id)
     {
 
@@ -288,14 +235,6 @@ class OrdersController extends Controller
         return $generator->bodyHtml();
     }
 
-    /**
-     * Generates HTML view of Invoice
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
-     */
     public function viewReverseChargeHtml($id)
     {
 
@@ -478,13 +417,6 @@ class OrdersController extends Controller
         ];
     }
 
-    /**
-     * Duplicate an order with its products, services and materials
-     *
-     * @param int $id
-     * @return array
-     * @throws \Throwable
-     */
     public function duplicate($id)
     {
         return DB::transaction(function () use ($id) {
