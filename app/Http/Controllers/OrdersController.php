@@ -101,7 +101,6 @@ class OrdersController extends Controller
         return $this->transformer->orderList($orders);
     }
 
-
     public function show(Order $order)
     {
         return $order->load($this->relations)->setAppends(['paid', 'dueNow']);
@@ -223,6 +222,7 @@ class OrdersController extends Controller
         $generator = new HtmlPdfGenerator($id);
         return $generator->footerHtml();
     }
+
     public function viewDefaultHtml($id)
     {
 
