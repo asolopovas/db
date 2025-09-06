@@ -34,7 +34,7 @@
                     {{ $customer->fullname }}<br>
                 @endif
 
-                @if ($order->project->street)
+                @if (isset($order->project->street) && $order->project->street)
                     {{ $order->project->street }}<br>
                     {{ $order->project->postcode }}
                 @else
