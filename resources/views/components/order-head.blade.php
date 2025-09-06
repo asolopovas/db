@@ -33,10 +33,17 @@
                 @else
                     {{ $customer->fullname }}<br>
                 @endif
-                {{ $address->address_line_1 }}<br>
-                {{ $address->city ?? 'London, ' }}{{ $address->town }}<br>
-                {{ $address->country }}<br>
-                {{ $address->postcode }}
+
+                @if ($order->project->street)
+                    {{ $order->project->street }}<br>
+                    {{ $order->project->postcode }}
+                @else
+                    {{ $address->address_line_1 }}<br>
+                    {{ $address->city ?? 'London, ' }}{{ $address->town }}<br>
+                    {{ $address->country }}<br>
+                    {{ $address->postcode }}
+                @endif
+
             </div>
         </td>
         <td style="width:50%;">
