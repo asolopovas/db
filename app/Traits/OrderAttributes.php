@@ -95,7 +95,7 @@ trait OrderAttributes
     {
 
         if ($this->project) {
-            return "{$this->project->address_line_1}, {$this->project->postcode}";
+            return "{$this->project->street}, {$this->project->postcode}";
         }
         $street = $this->customer->address_line_1;
         $postCode = $this->customer->postcode;
