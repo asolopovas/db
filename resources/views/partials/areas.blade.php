@@ -5,6 +5,7 @@
     $details[] = $produce_name . ($product->floor !== 'Natural Oiled' ? ' - Bespoke, Handfinished, Premium European Oak' : '');
     $details[] = $product->dimensions;
     $details[] = $product->grade . ' Grade';
+    $details[] = $product->extra;
 
 @endphp
 <div class="mb-2 pl-1">
