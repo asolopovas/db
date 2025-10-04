@@ -25,6 +25,7 @@
             <th>Areas</th>
             <th class="text-end">Quantity</th>
             <th class="text-end" style="width: 150px;">Unit Price</th>
+            <th class="text-end" style="width: 150px;">Discount</th>
             <th class="text-end" style="width: 150px;">Total Price</th>
         </tr>
     </thead>
@@ -34,7 +35,8 @@
             <td>{{ $area->name }}</td>
             <td class="text-end">{{ $area->meterage }} m²</td>
             <td class="text-end">@currency($product->unit_price)</td>
-            <td class="text-end">@currency($product->unit_price * $area->meterage)</td>
+            <td class="text-end">{{ $product->discount }}%</td>
+            <td class="text-end">@currency($product->unit_price * (1 - $product->discount / 100) * $area->meterage)</td>
         </tr>
         @endforeach
         <tr>
@@ -43,17 +45,13 @@
             </td>
             <td class="text-end">{{ $product->wastage }} m²</td>
             <td class="text-end">@currency($product->unit_price)</td>
+            <td class="text-end">{{ $product->discount }}%</td>
             <td class="text-end">@currency($product->unit_price * $product->wastage)</td>
         </tr>
     </tbody>
     <tfoot class="bg-gray">
         <tr>
-            <td class="text-end pb-0" colspan="4">Sub-Total: @currency($product->price)</td>
+            <td class="text-end pb-0" colspan="5">Sub-Total: @currency($product->price)</td>
         </tr>
-        @if ($product->discount)
-        <tr>
-            <td class="text-end pb-0" colspan="4">Discount Applied: @currency($product->discountedPrice)</td>
-        </tr>
-        @endif
     </tfoot>
 </table>
