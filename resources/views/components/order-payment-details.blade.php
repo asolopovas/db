@@ -9,9 +9,24 @@
     'company',
     'totalPrice',
     'grand_total',
+    'order',
     'discount',
     'vat_total',
+    'vat',
 ])
+
+@php
+$vat_title = "VAT ({$vat}%)";
+
+if($vat == 0 && !$order->reverse_charge) {
+    $vat_title = "Zero-rate New Build VAT (0%):";
+}
+
+if ($order->reverse_charge) {
+    $vat_title = "VAT Reverse Charge (20%):";
+}
+
+@endphp
 
 @includeWhen($tax_deductions->isNotEmpty(), 'partials.tax-deductions')
 @includeWhen($payments->isNotEmpty(), 'partials.payments')
@@ -48,8 +63,9 @@
                     'value' => $totalPrice - $discount,
                 ])
             @endif
+
             @include('partials.order-sums', [
-                'title' => 'VAT:',
+                'title' => "$vat_title",
                 'value' => $vat_total,
             ])
             @includeWhen($totalPrice !== $grand_total, 'partials.order-sums', [
@@ -61,7 +77,7 @@
                 'value' => $paid,
             ])
             @if ($tax_deductions->isNotEmpty())
-                @include('partials.order-sums', [
+                @include('partials.order-sums',[
                     'title' => 'Tax Deductions:',
                     'value' => $tax_deductions->sum('amount'),
                 ])

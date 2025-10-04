@@ -70,12 +70,39 @@
             :grand_total="$grand_total"
             :discount="$discount"
             :vat_total="$vat_total"
+            :vat="$vat"
             :paid="$paid"
+            :proforma="$proforma"
             :due_amount="$due_amount"
             :dueNow="$dueNow"
-            :proforma="$proforma"
         />
 
+        <table class="table-notes table-design">
+        <tr>
+            <td class="pl-2">
+                <b>Notes:</b>
+                <p>All threshold and extras that cannot be carried out at the same time
+                    of installation will be charged at a day work rate.</p>
+                    <br>
+                @if ($order->reverse_charge)
+                    <p><b>Customer to account to HMRC for the Reverse Charge output tax on the VAT exclusive price of items marked "Reverse Charge".</b></p>
+
+                @endif
+                @if($order->vat == 0 && !$order->reverse_charge)
+                    <p>Supply of engineered wood flooring qualifying for New Build property zero-rated under VAT Notice 708 Buildings and construction</p>
+                @endif
+                    <br>
+                @if ($order->reverse_charge)
+                <p>
+
+                    <b>UTR:</b>7442028147<br>
+                    <b>CRN:</b> 15541971
+                </p>
+                @endif
+
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>

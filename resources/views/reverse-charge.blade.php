@@ -75,8 +75,10 @@
         :grand_total="$grand_total"
         :discount="$discount"
         :vat_total="$vat_total"
+        :vat="$vat"
         :paid="$paid"
         :proforma="$proforma"
+        :reverse-charge="$order->reverse_charge"
         :due_amount="$due_amount"
         :dueNow="$dueNow"
     />
@@ -88,8 +90,8 @@
                 <p>All threshold and extras that cannot be carried out at the same time
                     of installation will be charged at a day work rate.</p>
                 @if ($order->reverse_charge)
-                    <p>Customer to account to HMRC for the reverse charge output tax on the VAT
-                        exclusive price of items marked "reverse charge".</p>
+                    <p>Customer to account to HMRC for the Reverse Charge output tax on the VAT
+                        exclusive price of items marked "Reverse Charge".</p>
                 @endif
                     <br>
                 <p>

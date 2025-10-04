@@ -80,8 +80,7 @@ class HtmlPdfGenerator
 
         $this->resetCache($storeKey, $cacheKey);
 
-        $view = $this->order->reverse_charge ? 'reverse-charge' : 'order';
-        $value = view($view, $this->orderData())->render();
+        $value = view('order', $this->orderData())->render();
         Cache::forever($cacheKey, $value);
 
         return $value;

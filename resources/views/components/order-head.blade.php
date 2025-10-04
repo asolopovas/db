@@ -61,7 +61,7 @@
                 @endif
                 @if ($order->reverse_charge)
                     <tr>
-                        <td class="pr-2"><b>Reverse Charge:</b> 20%</td>
+                        <td class="pr-2"><b>VAT Reverse Charge (20%):</b> £0.00</td>
                     </tr>
                 @endif
             </table>
