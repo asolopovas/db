@@ -50,6 +50,7 @@
                             <th class="t-col t-col-name">Name</th>
                             <th class="t-col t-col-quantity">Quantity</th>
                             <th class="t-col t-col-unit-price">Unit Price</th>
+                            <th class="t-col t-col-unit-price">Discount</th>
                             <th class="t-col t-col-price">Price</th>
                             <th class="t-col t-col-action">Action</th>
                         </tr>
@@ -63,7 +64,7 @@
                                 data-label="Name"
                                 class="t-col t-col-name"
                             >
-                                {{ material.name || '' }}
+                                {{ material.name || "" }}
                             </td>
                             <td
                                 data-label="Quantity"
@@ -76,6 +77,12 @@
                                 class="t-col t-col-unit-price"
                             >
                                 {{ $filters.currency(material.unit_price) }}
+                            </td>
+                            <td
+                                data-label="Unit Price"
+                                class="t-col t-col-unit-price"
+                            >
+                                {{ material.discount }}%
                             </td>
                             <td
                                 data-label="Price"
@@ -98,7 +105,7 @@
                     <tfoot>
                         <tr>
                             <td
-                                colspan="4"
+                                colspan="5"
                                 class="t-col text-right"
                             >
                                 Total: {{ currency(materialsTotal) }}
@@ -133,6 +140,7 @@
         name: string
         quantity: number
         unit_price: number
+        discount: number
         price: number
     }
 
@@ -149,7 +157,8 @@
     const materialPrice = computed(() => material.value.quantity * material.value.unit_price)
     const materialsTotal = computed(() =>
         materials.value.reduce(
-            (total: number, mat: Material) => total + mat.unit_price * mat.quantity,
+            (total: number, mat: Material) =>
+                total + mat.unit_price * (1 - mat.discount / 100) * mat.quantity,
             0
         )
     )
@@ -162,13 +171,12 @@
                 format: (item: any) =>
                     `${item.name}${item.price ? " - " + currency(item.price) : ""}`,
             },
-            quantity: {
-                type: "input-field",
-                cast: "number",
-            },
-            unit_price: {
-                type: "input-field",
-                cast: "number",
+            quantity: { type: "input-field", cast: "number" },
+            unit_price: { type: "input-field", cast: "number" },
+            discount: { type: "input-field", cast: "number" },
+            price: {
+                type: "display-field",
+                compute: (item: any) => item.unit_price * (1 - item.discount / 100) * item.quantity,
             },
         },
     })
@@ -188,6 +196,7 @@
                     order_id: route.params.id,
                     material_id: material.value.material.id,
                     unit_price: material.value.unit_price,
+                    discount: material.value.discount,
                     quantity: material.value.quantity,
                 },
                 endpoint: "order_material",
@@ -208,6 +217,7 @@
             el: {
                 material_id: material.value.material.id,
                 unit_price: material.value.unit_price,
+                discount: material.value.discount,
                 quantity: material.value.quantity,
             },
             endpoint: "order_material",

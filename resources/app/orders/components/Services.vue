@@ -44,36 +44,12 @@
                 <table class="table-order-edit">
                     <thead>
                         <tr>
-                            <th
-                                scope="col"
-                                class="t-col t-col-name"
-                            >
-                                Name
-                            </th>
-                            <th
-                                scope="col"
-                                class="t-col t-col-quantity"
-                            >
-                                Quantity
-                            </th>
-                            <th
-                                scope="col"
-                                class="t-col t-col-unit-price"
-                            >
-                                Unit Price
-                            </th>
-                            <th
-                                scope="col"
-                                class="t-col t-col-price"
-                            >
-                                Price
-                            </th>
-                            <th
-                                scope="col"
-                                class="t-col t-col-action"
-                            >
-                                Action
-                            </th>
+                            <th class="t-col t-col-name">Name</th>
+                            <th class="t-col t-col-quantity">Quantity</th>
+                            <th class="t-col t-col-unit-price">Unit Price</th>
+                            <th class="t-col t-col-unit-price">Discount</th>
+                            <th class="t-col t-col-price">Price</th>
+                            <th class="t-col t-col-action">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,7 +61,7 @@
                                 data-label="Name"
                                 class="t-col t-col-name"
                             >
-                                {{ service.name || (service.service && service.service.name) || '' }}
+                                {{ service.service.name }}
                             </td>
                             <td
                                 data-label="Quantity"
@@ -98,6 +74,12 @@
                                 class="t-col t-col-unit-price"
                             >
                                 {{ $filters.currency(service.unit_price) }} p/unit
+                            </td>
+                            <td
+                                data-label="Discount"
+                                class="t-col t-col-price"
+                            >
+                                {{ service.discount }}%
                             </td>
                             <td
                                 data-label="Price"
@@ -120,7 +102,7 @@
                     <tfoot>
                         <tr>
                             <td
-                                colspan="4"
+                                colspan="5"
                                 class="t-col text-right"
                             >
                                 Total: {{ currency(servicesTotal) }}
@@ -148,6 +130,7 @@
         service: { id: string; name: string }
         quantity: number
         unit_price: number
+        discount: number
         price: number
     }
 
@@ -161,7 +144,10 @@
     const service = computed(() => store.state.order.order_service)
     const servicePrice = computed(() => currency(service.value.unit_price * service.value.quantity))
     const servicesTotal = computed(() =>
-        services.value.reduce((total, serv) => total + serv.unit_price * serv.quantity, 0)
+        services.value.reduce(
+            (total, serv) => total + serv.unit_price * (1 - serv.discount / 100) * serv.quantity,
+            0
+        )
     )
 
     const servicesModal = ref<StoreUpdater>({
@@ -175,9 +161,10 @@
             },
             quantity: { type: "input-field", cast: "number" },
             unit_price: { type: "input-field", cast: "number" },
+            discount: { type: "input-field", cast: "number" },
             price: {
                 type: "display-field",
-                compute: (item: any) => item.unit_price * item.quantity,
+                compute: (item: any) => item.unit_price * (1 - item.discount / 100) * item.quantity,
             },
         },
     })
@@ -197,6 +184,7 @@
                         order_id: route.params.id,
                         service_id: service.value.service.id,
                         unit_price: service.value.unit_price,
+                        discount: service.value.discount,
                         quantity: service.value.quantity,
                     },
                     endpoint: "order_service",
@@ -217,6 +205,7 @@
                 el: {
                     service_id: service.value.service.id,
                     unit_price: service.value.unit_price,
+                    discount: service.value.discount,
                     quantity: service.value.quantity,
                 },
                 endpoint: "order_service",

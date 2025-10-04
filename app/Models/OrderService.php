@@ -32,6 +32,7 @@ class OrderService extends Model
     protected $casts = [
         'unit_price' => 'float',
         'quantity'   => 'float',
+        'discount'   => 'float',
     ];
 
     /**
@@ -42,6 +43,7 @@ class OrderService extends Model
         'service_id',
         'name',
         'unit_price',
+        'discount',
         'quantity',
     ];
 
@@ -101,6 +103,6 @@ class OrderService extends Model
      */
     public function getPriceAttribute()
     {
-        return $this->unit_price * $this->quantity;
+        return $this->unit_price * (1 - $this->discount / 100) * $this->quantity;
     }
 }

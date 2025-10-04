@@ -26,6 +26,7 @@ class OrderMaterial extends Model
     protected $casts = [
         'unit_price' => 'float',
         'quantity'   => 'float',
+        'discount'   => 'float',
         'order_date' => 'datetime'
     ];
 
@@ -34,6 +35,7 @@ class OrderMaterial extends Model
         'material_id',
         'name',
         'unit_price',
+        'discount',
         'quantity',
     ];
 
@@ -92,6 +94,6 @@ class OrderMaterial extends Model
      */
     public function getPriceAttribute()
     {
-        return $this->unit_price * $this->quantity;
+        return $this->unit_price * (1 - $this->discount / 100) * $this->quantity;
     }
 }
