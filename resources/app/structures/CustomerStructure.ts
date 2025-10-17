@@ -24,7 +24,7 @@ export default {
             id: { type: "number", edit: false, hide: true },
             title: {
                 type: "select",
-                options: ["Mr.", "Mrs.", "Miss", "Dr."],
+                options: ["Mr.", "Mrs.", "Miss", "Ms." ,"Dr.", "Prof."],
             },
             firstname: { type: "text", className: 'w-[140px]' },
             lastname: { type: "text" },
