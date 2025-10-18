@@ -276,9 +276,14 @@ class OrdersController extends Controller
     public function download($id)
     {
         $generator = new HtmlPdfGenerator($id);
+        $pdfContent = $generator->pdfString();
 
-        return response($generator->pdfString())->withHeaders(
-            ['Content-Type' => 'text/plain']
+        return response($pdfContent, 200)->withHeaders(
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="order-%s.pdf"', $id),
+                'Content-Length'      => strlen($pdfContent),
+            ]
         );
     }
 
