@@ -248,6 +248,7 @@ declare global {
         type: string
         format?: (item: any) => string | null
         compute?: (item: any) => any
+        skip?: Array<number>
         disabled?: boolean
         cast?: string
         label?: string

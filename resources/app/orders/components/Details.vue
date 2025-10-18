@@ -133,6 +133,7 @@
                                 class="w-full lg:max-w-[195px]"
                                 :is="value.type"
                                 :set="orderSettings.setter"
+                                :skip="value.skip"
                                 :format="value.format"
                                 :cast="value.cast"
                                 :alerts="alerts"
@@ -284,6 +285,7 @@
             },
             status: {
                 type: "input-search",
+                skip: [2]
             },
             project: {
                 type: "input-search",

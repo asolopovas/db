@@ -65,7 +65,7 @@
     import { ref, computed, watch, onMounted } from "vue"
     import { useStore } from "vuex"
     import AlgoliaPlugin from "@/app/plugins/algolia-plugin.js"
-    import { get, debounce } from 'lodash-es'
+    import { get, debounce, filter } from 'lodash-es'
     import pluralize from "pluralize"
     import { filters } from "@root/resources/app/lib/global-helpers"
 
@@ -77,6 +77,7 @@
     const props = defineProps({
         wrap: { type: String },
         class: { type: String },
+        skip: {type: Array, default: () => [] },
         set: { type: String, required: true },
         loc: { type: String, required: true },
         labelOn: { type: Boolean, default: true },
@@ -128,7 +129,13 @@
             indexName: index.value,
         }
         const { data } = await algolia.search(searchParams)
-        results.value = data as SearchResult[]
+        const filteredData = (data as SearchResult[]).filter(
+            (item) => !props.skip.includes(item.id)
+        )
+
+        console.log({filteredData, skip: props.skip});
+
+        results.value = filteredData as SearchResult[]
 
         if (!results.value.length) {
             const fallbackParams = {
