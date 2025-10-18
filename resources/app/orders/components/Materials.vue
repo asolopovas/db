@@ -191,14 +191,18 @@
     async function add() {
         alerts.value = validate(material.value, ["material", "quantity"])
         if (alerts.value.length === 0) {
+            const d = material.value.discount
+
+            const payload = {
+                order_id: route.params.id,
+                material_id: material.value.material.id,
+                unit_price: material.value.unit_price,
+                discount: d === "" ? 0 : d,
+                quantity: material.value.quantity,
+            }
+
             await store.dispatch("addEl", {
-                el: {
-                    order_id: route.params.id,
-                    material_id: material.value.material.id,
-                    unit_price: material.value.unit_price,
-                    discount: material.value.discount,
-                    quantity: material.value.quantity,
-                },
+                el: payload,
                 endpoint: "order_material",
             })
             reset()

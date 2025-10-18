@@ -178,15 +178,19 @@
     function add() {
         alerts.value = validate(service.value, ["service", "quantity", "unit_price"])
         if (!alerts.value.length) {
+            const d = service.value.discount
+
+            const payload = {
+                order_id: route.params.id,
+                service_id: service.value.service.id,
+                unit_price: service.value.unit_price,
+                discount: d === "" ? 0 : d,
+                quantity: service.value.quantity,
+            }
+
             store
                 .dispatch("addEl", {
-                    el: {
-                        order_id: route.params.id,
-                        service_id: service.value.service.id,
-                        unit_price: service.value.unit_price,
-                        discount: service.value.discount,
-                        quantity: service.value.quantity,
-                    },
+                    el: payload,
                     endpoint: "order_service",
                 })
                 .then(reset)
