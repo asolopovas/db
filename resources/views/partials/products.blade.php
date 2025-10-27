@@ -2,12 +2,15 @@
 <table class="table-design table">
     <thead>
         <tr>
-            <th>Item</th>
-            <th class="text-end">Meterage</th>
+            <th style="width: 250px;">Item</th>
+            <th class="text-end" style="width: 60px;">Meterage</th>
             <th class="text-end">Wastage</th>
-            <th class="text-end">Total m²</th>
-            <th class="text-end">Unit Price</th>
-            <th class="text-end">Price</th>
+            <th class="text-end" style="width: 100px;">Total m²</th>
+            @if($products->sum('discount') > 0)
+                <th class="text-end" style="width: 60px;">Discount</th>
+            @endif
+            <th class="text-end" style="width: 120px;">Unit Price</th>
+            <th class="text-end" style="width: 120px;">Price</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +22,7 @@
                 <td class="text-end">{{ $product->wastage }}m²</td>
                 <td class="text-end">{{ $product->totalMeterage }}m²</td>
                 @if ($product->discount)
+                    <td class="text-end">{{ $product->discount }}%</td>
                     <td class="text-end">
                         <span class="text-decoration-line-through">@currency($product->unit_price)</span> /
                         @currency($product->discountedUnitPrice)
@@ -36,7 +40,7 @@
     </tbody>
     <tfoot class="bg-gray">
         <tr>
-            <td class="text-end" colspan="6">
+            <td class="text-end pb-0" colspan="@if($products->sum('discount') > 0) 7 @else 6 @endif">
                 Sub Total: @currency($products->sum('discountedPrice'))
             </td>
         </tr>

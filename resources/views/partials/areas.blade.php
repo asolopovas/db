@@ -60,7 +60,7 @@
     <tfoot class="bg-gray">
         <tr>
             <td class="text-end pb-0" colspan="@if($product->discount > 0) 5 @else 4 @endif">
-                Sub-Total: @currency($product->price)</td>
+                Sub-Total: @currency($product->discountedPrice)</td>
         </tr>
     </tfoot>
 </table>

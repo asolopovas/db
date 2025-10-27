@@ -224,7 +224,7 @@ class Product extends Model
      */
     public function getPriceAttribute()
     {
-        $result = $this->totalMeterage * $this->unit_price * (1 - $this->discount / 100);
+        $result = $this->totalMeterage * $this->unit_price;
 
         return round($result, 2);
     }
