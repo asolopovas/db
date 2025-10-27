@@ -3,36 +3,32 @@
     <thead>
         <tr>
             <th style="width: 250px;">Item</th>
-            <th class="text-end" style="width: 60px;">Meterage</th>
-            <th class="text-end">Wastage</th>
-            <th class="text-end" style="width: 100px;">Total m²</th>
+            <th class="text-end" style="width: 100px;">Quantity</th>
+            <th class="text-end" style="width: 120px;">Unit Price</th>
             @if($products->sum('discount') > 0)
                 <th class="text-end" style="width: 60px;">Discount</th>
             @endif
-            <th class="text-end" style="width: 120px;">Unit Price</th>
-            <th class="text-end" style="width: 120px;">Price</th>
+            <th class="text-end" style="width: 120px;">Net Price</th>
+            <th class="text-end" style="width: 120px;">Amount</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($products as $product)
             <tr>
                 <td>{{ $product->grade }} Grade {{ $product->name }} {{ $product->dimensions }}
-                </td>
-                <td class="text-end">{{ $product->meterage }}m²</td>
-                <td class="text-end">{{ $product->wastage }}m²</td>
+                @if($product->wastage)(+{{ $product->wastage }}% cutting & waste)@endif</td>
                 <td class="text-end">{{ $product->totalMeterage }}m²</td>
                 @if ($product->discount)
-                    <td class="text-end">{{ $product->discount }}%</td>
+                    <td class="text-end">@currency($product->unit_price)</td>
+                    <td class="text-end">{{ $product->discount }}%</td></td>
+                    <td class="text-end">@currency($product->discountedUnitPrice)</td>
                     <td class="text-end">
-                        <span class="text-decoration-line-through">@currency($product->unit_price)</span> /
-                        @currency($product->discountedUnitPrice)
-                    </td>
-                    <td class="text-end">
-                        <span class="text-decoration-line-through">@currency($product->price)</span> /
                         @currency($product->discountedPrice)
                     </td>
                 @else
                     <td class="text-end">@currency($product->unit_price)</td>
+                    <td class="text-end">{{ $product->discount }}%</td>
+                    <td class="text-end">@currency($product->discountedUnitPrice)</td>
                     <td class="text-end">@currency($product->discountedPrice)</td>
                 @endif
             </tr>

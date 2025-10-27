@@ -27,6 +27,7 @@
             <th class="text-end" style="width: 150px;">Unit Price</th>
             @if($product->discount > 0)
                 <th class="text-end" style="width: 150px;">Discount</th>
+                <th class="text-end" style="width: 150px;">Net Price</th>
             @endif
             <th class="text-end" style="width: 150px;">Total Price</th>
         </tr>
@@ -39,6 +40,7 @@
                 <td class="text-end">@currency($product->unit_price)</td>
                 @if($product->discount > 0)
                     <td class="text-end">{{ $product->discount }}%</td>
+                    <td class="text-end">@currency($product->discountedUnitPrice)</td>
                 @endif
                 <td class="text-end">
                     @currency($product->unit_price * $area->meterage * (1 - $product->discount / 100))
@@ -53,13 +55,16 @@
             <td class="text-end">@currency($product->unit_price)</td>
             @if($product->discount > 0)
                 <td class="text-end">{{ $product->discount }}%</td>
+                <td class="text-end">@currency($product->discountedUnitPrice)</td>
             @endif
-            <td class="text-end">@currency($product->unit_price * $product->wastage * (1 - $product->discount / 100))</td>
+            <td class="text-end">
+                @currency($product->unit_price * $product->wastage * (1 - $product->discount / 100))
+            </td>
         </tr>
     </tbody>
     <tfoot class="bg-gray">
         <tr>
-            <td class="text-end pb-0" colspan="@if($product->discount > 0) 5 @else 4 @endif">
+            <td class="text-end pb-0" colspan="@if($product->discount > 0) 6 @else 5 @endif">
                 Sub-Total: @currency($product->discountedPrice)</td>
         </tr>
     </tfoot>
