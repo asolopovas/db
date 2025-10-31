@@ -143,7 +143,7 @@ class OrderTransformer
             'Price',
         ];
 
-        return $data->map(function (OrderMaterial $item) {
+        return $data->map(function ($item) {
             return [
                 'order_id'   => $item->order_id,
                 'date'       => Carbon::parse($item->order_date)->format('d/m/Y'),
