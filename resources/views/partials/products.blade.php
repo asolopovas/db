@@ -18,7 +18,7 @@
                 <td>{{ $product->grade }} Grade {{ $product->name }} {{ $product->dimensions }}
                 @if($product->wastage)(+{{ $product->wastage }}% cutting & waste)@endif</td>
                 <td class="text-end">{{ $product->totalMeterage }}m²</td>
-                @if ($product->discount)
+                @if ($product->discount > 0)
                     <td class="text-end">@currency($product->unit_price)</td>
                     <td class="text-end">{{ $product->discount }}%</td></td>
                     <td class="text-end">@currency($product->discountedUnitPrice)</td>
@@ -27,7 +27,9 @@
                     </td>
                 @else
                     <td class="text-end">@currency($product->unit_price)</td>
+                @if ($product->discount > 0)
                     <td class="text-end">{{ $product->discount }}%</td>
+                @endif
                     <td class="text-end">@currency($product->discountedUnitPrice)</td>
                     <td class="text-end">@currency($product->discountedPrice)</td>
                 @endif
