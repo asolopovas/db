@@ -80,7 +80,7 @@ class OrderService extends Model
             ->leftjoin('projects', 'orders.project_id', '=', 'projects.id')
             ->with('customer')
             ->where('orders.balance', 0)
-            ->where('statuses.name', 'Invoice')
+            ->whereIn('statuses.name', ['Invoice', 'Proforma Invoice'])
             ->select(
                 [
                     'order_services.unit_price',
