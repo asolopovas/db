@@ -33,12 +33,21 @@ export function dateFormat(date: string, options: string = 'ccc dd MMM yyyy') {
 }
 
 export function extractIds(ids: string[], container: any) {
-    if (!isObject(container)) console.error('Argument container must be an object')
+    if (!isObject(container)) {
+        console.error('Argument container must be an object')
+        return
+    }
     for (const id of ids) {
-        if (container.hasOwnProperty(id)) {
-            container[id + '_id'] = container[id].id
-            delete container[id]
-        }
+        if (!Object.prototype.hasOwnProperty.call(container, id)) continue
+
+        const value = container[id]
+        const nextValue =
+            value && typeof value === 'object' && 'id' in value
+                ? value.id
+                : (value ?? null)
+
+        container[id + '_id'] = nextValue
+        delete container[id]
     }
 }
 

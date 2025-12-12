@@ -127,17 +127,11 @@ class Product extends Model
      */
     public function scopeWithMeta($query)
     {
-        $query->join('floors', 'products.floor_id', '=', 'floors.id')->join(
-            'extras',
-            'products.extra_id',
-            '=',
-            'extras.id'
-        )->join('dimensions', 'products.dimension_id', '=', 'dimensions.id')->join(
-            'grades',
-            'products.grade_id',
-            '=',
-            'grades.id'
-        )->addSelect(
+        $query->leftJoin('floors', 'products.floor_id', '=', 'floors.id')
+            ->leftJoin('extras', 'products.extra_id', '=', 'extras.id')
+            ->leftJoin('dimensions', 'products.dimension_id', '=', 'dimensions.id')
+            ->leftJoin('grades', 'products.grade_id', '=', 'grades.id')
+            ->addSelect(
             [
                 'products.*',
                 'floors.name as floor',
