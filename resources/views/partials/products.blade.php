@@ -15,8 +15,8 @@
     <tbody>
         @foreach ($products as $product)
             <tr>
-                <td>{{ $product->grade }} Grade {{ $product->name }} {{ $product->dimensions }}
-                @if($product->wastage)(+{{ $product->wastage }}m² cutting & waste)@endif</td>
+                <td>{{ $product->grade }} Grade {{ $product->name }} {{ $product->dimensions }} @if($product->extra) {{ $product->extra }}@endif
+                @if($product->wastage)(+{{ $product->wastage }}m² cutting & waste)@endif </td>
                 <td class="text-end">{{ $product->totalMeterage }}m²</td>
                 @if ($product->discount > 0)
                     <td class="text-end">@currency($product->unit_price)</td>
