@@ -77,4 +77,23 @@ class OrderTest extends TestCase
         $this->assertEquals($this->order->grand_total, $total);
     }
 
+    /** @test */
+    public function order_can_be_soft_deleted_and_restored()
+    {
+        $orderId = $this->order->id;
+
+        $this->order->delete();
+
+        $this->assertSoftDeleted('orders', ['id' => $orderId]);
+        $this->assertNull(Order::find($orderId));
+
+        $restoredOrder = Order::withTrashed()->findOrFail($orderId);
+        $restoredOrder->restore();
+
+        $this->assertDatabaseHas('orders', [
+            'id' => $orderId,
+            'deleted_at' => null,
+        ]);
+    }
+
 }

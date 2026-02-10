@@ -169,6 +169,18 @@ class OrdersController extends Controller
         ];
     }
 
+    public function restore($id)
+    {
+        $order = Order::withTrashed()->findOrFail($id);
+        $order->restore();
+
+        return [
+            "type"    => "Success",
+            "message" => "Order Successfully Restored",
+            "item"    => $order->load($this->relations),
+        ];
+    }
+
     public function totals()
     {
 

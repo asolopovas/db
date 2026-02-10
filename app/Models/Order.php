@@ -7,6 +7,7 @@ use App\Traits\OrderRelations;
 use App\Traits\OrderScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
 /**
@@ -14,11 +15,12 @@ use Laravel\Scout\Searchable;
  */
 class Order extends Model
 {
-    use Searchable, OrderAttributes, OrderRelations, OrderScopes, HasFactory;
+    use Searchable, OrderAttributes, OrderRelations, OrderScopes, HasFactory, SoftDeletes;
 
     protected $dates = [
         'created_at',
         'updated_at',
+        'deleted_at',
         'payment_date',
         'review_request',
         'photo_request',
