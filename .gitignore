@@ -39,3 +39,5 @@ stats.html
 *.sln
 vue_upgrade_output
 todo.md
+playwright-report/
+test-results/

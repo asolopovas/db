@@ -424,8 +424,19 @@ async function duplicateOrder(
       body: { mode },
     });
     const newId =
-      (response as any)?.data?.item?.id || (response as any)?.data?.id;
-    if (newId) router.push({ path: `/orders/${newId}/details` });
+      (response as any)?.data?.id || (response as any)?.data?.item?.id;
+
+    if (!newId) {
+      throw new Error("Duplicate created but no order id returned.");
+    }
+
+    const targetPath = `/orders/${newId}/details`;
+
+    try {
+      await router.push({ path: targetPath });
+    } catch {
+      window.location.assign(targetPath);
+    }
   } catch (error) {
     console.error("Failed to duplicate order:", error);
   }

@@ -469,6 +469,7 @@ class OrdersController extends Controller
                 return [
                     'type'    => 'Success',
                     'message' => 'Order duplicated successfully.',
+                    'id'      => $order->id,
                     'item'    => $order->load($this->relations)->setAppends(['paid', 'dueNow']),
                 ];
             });
