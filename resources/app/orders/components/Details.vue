@@ -234,13 +234,25 @@
                   All
                 </base-button>
                 <base-button
-                  class="btn-action bg-indigo-500 hover:bg-indigo-600 text-white text-sm"
+                  :class="[
+                    'btn-action text-white text-sm',
+                    canDuplicateMaterialsProducts
+                      ? 'bg-indigo-500 hover:bg-indigo-600'
+                      : 'bg-gray-400 cursor-not-allowed',
+                  ]"
+                  :disabled="!canDuplicateMaterialsProducts"
                   @click="() => duplicateOrder('materials_products')"
                 >
                   Materials + Products
                 </base-button>
                 <base-button
-                  class="btn-action bg-indigo-400 hover:bg-indigo-500 text-white text-sm"
+                  :class="[
+                    'btn-action text-white text-sm',
+                    canDuplicateServicesOnly
+                      ? 'bg-indigo-400 hover:bg-indigo-500'
+                      : 'bg-gray-400 cursor-not-allowed',
+                  ]"
+                  :disabled="!canDuplicateServicesOnly"
                   @click="() => duplicateOrder('services_only')"
                 >
                   Services Only
@@ -356,6 +368,15 @@ const reverseCharge = computed({
   },
 });
 const token = computed(() => store.state.auth.access_token);
+const canDuplicateMaterialsProducts = computed(() => {
+  const hasProducts = (store.state.order.products || []).length > 0;
+  const hasMaterials = (store.state.order.order_materials || []).length > 0;
+
+  return hasProducts || hasMaterials;
+});
+const canDuplicateServicesOnly = computed(
+  () => (store.state.order.order_services || []).length > 0,
+);
 
 watch(
   () => route.query.duplicated,
@@ -474,6 +495,14 @@ function customerOrders() {
 async function duplicateOrder(
   mode: "all" | "materials_products" | "services_only" = "all",
 ) {
+  if (mode === "materials_products" && !canDuplicateMaterialsProducts.value) {
+    return;
+  }
+
+  if (mode === "services_only" && !canDuplicateServicesOnly.value) {
+    return;
+  }
+
   try {
     const id = store.state.order.id;
     const response = await apiFetch(`/api/orders/${id}/duplicate`, {
