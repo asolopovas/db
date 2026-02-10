@@ -33,6 +33,16 @@
     >
       You are now viewing duplicated order #{{ duplicatedOrderId }}.
     </modal>
+    <modal
+      v-if="showDuplicateConfirmation"
+      class="send"
+      :controls="true"
+      @close="cancelDuplicateConfirmation"
+      @no="cancelDuplicateConfirmation"
+      @yes="confirmDuplicate"
+    >
+      {{ duplicateConfirmationMessage }}
+    </modal>
     <modal v-if="pdf" class="pdf" :controls="false" @close="() => (pdf = null)">
       <embed
         id="pdf"
@@ -229,7 +239,7 @@
               <div class="grid grid-cols-3 gap-2">
                 <base-button
                   class="btn-action bg-indigo-600 hover:bg-indigo-700 text-white text-sm"
-                  @click="() => duplicateOrder('all')"
+                  @click="() => requestDuplicateOrder('all')"
                 >
                   All
                 </base-button>
@@ -240,8 +250,7 @@
                       ? 'bg-indigo-500 hover:bg-indigo-600'
                       : 'bg-gray-400 cursor-not-allowed',
                   ]"
-                  :disabled="!canDuplicateMaterialsProducts"
-                  @click="() => duplicateOrder('materials_products')"
+                  @click="() => requestDuplicateOrder('materials_products')"
                 >
                   Materials + Products
                 </base-button>
@@ -252,8 +261,7 @@
                       ? 'bg-indigo-400 hover:bg-indigo-500'
                       : 'bg-gray-400 cursor-not-allowed',
                   ]"
-                  :disabled="!canDuplicateServicesOnly"
-                  @click="() => duplicateOrder('services_only')"
+                  @click="() => requestDuplicateOrder('services_only')"
                 >
                   Services Only
                 </base-button>
@@ -306,6 +314,10 @@ const notesBox = ref(false);
 const paymentTerms = ref(false);
 const showDuplicateNotice = ref(false);
 const duplicatedOrderId = ref<number | null>(null);
+const showDuplicateConfirmation = ref(false);
+const duplicateModeToConfirm = ref<
+  "all" | "materials_products" | "services_only" | null
+>(null);
 const alerts = ref<any[]>([]);
 
 const orderSettings = ref<StoreUpdater>({
@@ -377,6 +389,17 @@ const canDuplicateMaterialsProducts = computed(() => {
 const canDuplicateServicesOnly = computed(
   () => (store.state.order.order_services || []).length > 0,
 );
+const duplicateConfirmationMessage = computed(() => {
+  if (duplicateModeToConfirm.value === "materials_products") {
+    return "Do you confirm duplicating this order with materials and products only?";
+  }
+
+  if (duplicateModeToConfirm.value === "services_only") {
+    return "Do you confirm duplicating this order with services only?";
+  }
+
+  return "Do you confirm duplicating this order?";
+});
 
 watch(
   () => route.query.duplicated,
@@ -401,6 +424,36 @@ watch(
 
 function closeDuplicateNotice() {
   showDuplicateNotice.value = false;
+}
+
+function requestDuplicateOrder(
+  mode: "all" | "materials_products" | "services_only",
+) {
+  if (mode === "materials_products" && !canDuplicateMaterialsProducts.value) {
+    return;
+  }
+
+  if (mode === "services_only" && !canDuplicateServicesOnly.value) {
+    return;
+  }
+
+  duplicateModeToConfirm.value = mode;
+  showDuplicateConfirmation.value = true;
+}
+
+function cancelDuplicateConfirmation() {
+  showDuplicateConfirmation.value = false;
+  duplicateModeToConfirm.value = null;
+}
+
+async function confirmDuplicate() {
+  if (!duplicateModeToConfirm.value) {
+    return;
+  }
+
+  const mode = duplicateModeToConfirm.value;
+  cancelDuplicateConfirmation();
+  await duplicateOrder(mode);
 }
 
 async function send() {
