@@ -137,12 +137,6 @@
               class="order-controls grid md:grid-cols-2 lg:grid-cols-4 gap-2"
             >
               <base-button
-                class="btn-action bg-red-400"
-                @click="viewReverseCharge"
-              >
-                Reverse Charge Invoice
-              </base-button>
-              <base-button
                 class="btn-action bg-yellow-500"
                 @click="viewInvoice"
               >
@@ -186,26 +180,65 @@
               >
                 Payment Terms
               </base-button>
+              <base-button
+                class="btn-action bg-red-400 col-span-2 lg:col-span-1"
+                @click="viewReverseCharge"
+              >
+                Reverse Charge Invoice
+              </base-button>
+              <div
+                class="toggle-container col-span-2 lg:col-span-1 lg:col-start-4 justify-self-end"
+              >
+                <label
+                  class="toggle-label select-none cursor-pointer"
+                  for="reverse-charge"
+                  >Reverse Charge</label
+                ><input
+                  id="reverse-charge"
+                  type="checkbox"
+                  class="checkbox"
+                  v-model="reverseCharge"
+                /><label
+                  for="reverse-charge"
+                  class="switch cursor-pointer"
+                ></label>
+              </div>
             </div>
           </div>
           <div class="flex gap-4 w-full justify-end pb-12">
-            <!-- Reverse Charge Checkbox -->
-            <div class="toggle-container">
-              <label
-                class="toggle-label select-none cursor-pointer"
-                for="reverse-charge"
-                >Reverse Charge</label
-              ><input
-                id="reverse-charge"
-                type="checkbox"
-                class="checkbox"
-                v-model="reverseCharge"
-              /><label
-                for="reverse-charge"
-                class="switch cursor-pointer"
-              ></label>
+            <div class="flex flex-col gap-2 min-w-[320px]">
+              <p
+                class="text-xs font-semibold uppercase tracking-wide text-neutral-600"
+              >
+                Duplicate Copy
+              </p>
+              <div class="grid grid-cols-3 gap-2">
+                <base-button
+                  class="btn-action bg-indigo-600 hover:bg-indigo-700 text-white text-sm"
+                  @click="() => duplicateOrder('all')"
+                >
+                  All
+                </base-button>
+                <base-button
+                  class="btn-action bg-indigo-500 hover:bg-indigo-600 text-white text-sm"
+                  @click="() => duplicateOrder('materials_products')"
+                >
+                  Materials + Products
+                </base-button>
+                <base-button
+                  class="btn-action bg-indigo-400 hover:bg-indigo-500 text-white text-sm"
+                  @click="() => duplicateOrder('services_only')"
+                >
+                  Services Only
+                </base-button>
+              </div>
             </div>
             <div class="w-1/2 grid grid-cols-2 gap-2 col-start-2 items-center">
+              <p
+                class="col-span-2 text-xs font-semibold uppercase tracking-wide text-neutral-600"
+              >
+                Order Actions
+              </p>
               <base-button
                 class="btn-action bg-yellow-300 hover:bg-yellow-400 text-black"
                 @click="() => (showModal = true)"
@@ -217,24 +250,6 @@
                 @click="save(false)"
               >
                 Save
-              </base-button>
-              <base-button
-                class="btn-action bg-indigo-600 hover:bg-indigo-700 text-white col-span-2"
-                @click="() => duplicateOrder('all')"
-              >
-                Duplicate
-              </base-button>
-              <base-button
-                class="btn-action bg-indigo-500 hover:bg-indigo-600 text-white col-span-2"
-                @click="() => duplicateOrder('materials_products')"
-              >
-                Duplicate Materials + Products
-              </base-button>
-              <base-button
-                class="btn-action bg-indigo-400 hover:bg-indigo-500 text-white col-span-2"
-                @click="() => duplicateOrder('services_only')"
-              >
-                Duplicate Services Only
               </base-button>
             </div>
           </div>
