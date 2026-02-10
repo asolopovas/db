@@ -25,6 +25,14 @@
     >
       Do you wish to send this order?
     </modal>
+    <modal
+      v-if="showDuplicateNotice"
+      class="send"
+      :controls="false"
+      @close="closeDuplicateNotice"
+    >
+      You are now viewing duplicated order #{{ duplicatedOrderId }}.
+    </modal>
     <modal v-if="pdf" class="pdf" :controls="false" @close="() => (pdf = null)">
       <embed
         id="pdf"
@@ -266,14 +274,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { filters } from "@root/resources/app/lib/global-helpers";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import apiFetch from "@root/resources/app/lib/apiFetch";
 import DisplayField from "@components/form-components/DisplayField.vue";
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 
 const modals = ref<Record<string, Modal>>({});
@@ -283,6 +292,8 @@ const pdf = ref<string | null>(null);
 const mailBox = ref(false);
 const notesBox = ref(false);
 const paymentTerms = ref(false);
+const showDuplicateNotice = ref(false);
+const duplicatedOrderId = ref<number | null>(null);
 const alerts = ref<any[]>([]);
 
 const orderSettings = ref<StoreUpdater>({
@@ -345,6 +356,31 @@ const reverseCharge = computed({
   },
 });
 const token = computed(() => store.state.auth.access_token);
+
+watch(
+  () => route.query.duplicated,
+  async (duplicated) => {
+    const isDuplicated = Array.isArray(duplicated)
+      ? duplicated.includes("1")
+      : duplicated === "1";
+
+    if (!isDuplicated) {
+      return;
+    }
+
+    duplicatedOrderId.value = Number(route.params.id) || null;
+    showDuplicateNotice.value = true;
+
+    const query = { ...route.query };
+    delete query.duplicated;
+    await router.replace({ path: route.path, query });
+  },
+  { immediate: true },
+);
+
+function closeDuplicateNotice() {
+  showDuplicateNotice.value = false;
+}
 
 async function send() {
   showModal.value = false;
@@ -454,9 +490,9 @@ async function duplicateOrder(
     const targetPath = `/orders/${newId}/details`;
 
     try {
-      await router.push({ path: targetPath });
+      await router.push({ path: targetPath, query: { duplicated: "1" } });
     } catch {
-      window.location.assign(targetPath);
+      window.location.assign(`${targetPath}?duplicated=1`);
     }
   } catch (error) {
     console.error("Failed to duplicate order:", error);

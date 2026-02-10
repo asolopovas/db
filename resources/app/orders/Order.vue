@@ -133,9 +133,9 @@ const duplicate = async () => {
     const targetPath = `/orders/${newId}/details`;
 
     try {
-      await router.push({ path: targetPath });
+      await router.push({ path: targetPath, query: { duplicated: "1" } });
     } catch {
-      window.location.assign(targetPath);
+      window.location.assign(`${targetPath}?duplicated=1`);
     }
   } catch (error) {
     console.error("Failed to duplicate order:", error);
