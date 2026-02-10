@@ -447,6 +447,21 @@ class OrdersController extends Controller
                             'quantity'   => $material->quantity,
                         ]);
                     }
+
+                    if ($duplicateMode === 'materials_products') {
+                        $deliveryService = $source->orderServices
+                            ->first(fn($service) => stripos((string) $service->name, 'delivery') !== false);
+
+                        if ($deliveryService) {
+                            OrderService::create([
+                                'order_id'   => $order->id,
+                                'service_id' => $deliveryService->service_id,
+                                'name'       => $deliveryService->name,
+                                'unit_price' => $deliveryService->unit_price,
+                                'quantity'   => $deliveryService->quantity,
+                            ]);
+                        }
+                    }
                 }
 
                 if ($duplicateMode === 'all' || $duplicateMode === 'services_only') {

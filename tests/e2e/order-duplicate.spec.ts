@@ -12,7 +12,7 @@ type LoginResponse = {
 type OrderPayload = {
   id: number;
   products: unknown[];
-  orderServices: unknown[];
+  orderServices: Array<{ name?: string }>;
   orderMaterials: unknown[];
 };
 
@@ -164,7 +164,10 @@ async function assertDuplicateMode(
     expect(duplicated.orderMaterials.length).toBe(
       sourceOrder.orderMaterials.length,
     );
-    expect(duplicated.orderServices.length).toBe(0);
+    expect(duplicated.orderServices.length).toBe(1);
+    expect((duplicated.orderServices[0]?.name || "").toLowerCase()).toContain(
+      "delivery",
+    );
     return;
   }
 
