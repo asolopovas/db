@@ -133,9 +133,20 @@
           </div>
           <div class="flex flex-col w-full">
             <hr />
+            <p
+              class="mt-2 mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600"
+            >
+              Invoice Actions
+            </p>
             <div
               class="order-controls grid md:grid-cols-2 lg:grid-cols-4 gap-2"
             >
+              <base-button
+                class="btn-action bg-red-400"
+                @click="viewReverseCharge"
+              >
+                Reverse Charge Invoice
+              </base-button>
               <base-button
                 class="btn-action bg-yellow-500"
                 @click="viewInvoice"
@@ -159,9 +170,12 @@
           <!-- Messages and Communications -->
           <div class="flex flex-col mb-4 w-full">
             <hr class="mb-1" />
-            <div
-              class="messages-controls grid grid-cols-2 lg:grid lg:grid-cols-4 gap-2"
+            <p
+              class="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600"
             >
+              Message Actions
+            </p>
+            <div class="messages-controls grid grid-cols-4 gap-2">
               <base-button
                 class="btn-action bg-sky-600 text-white"
                 @click="() => (mailBox = true)"
@@ -175,20 +189,12 @@
                 Notes
               </base-button>
               <base-button
-                class="btn-action bg-sky-600 text-white col-span-2 lg:col-span-1"
+                class="btn-action bg-sky-600 text-white"
                 @click="() => (paymentTerms = true)"
               >
                 Payment Terms
               </base-button>
-              <base-button
-                class="btn-action bg-red-400 col-span-2 lg:col-span-1"
-                @click="viewReverseCharge"
-              >
-                Reverse Charge Invoice
-              </base-button>
-              <div
-                class="toggle-container col-span-2 lg:col-span-1 lg:col-start-4 justify-self-end"
-              >
+              <div class="toggle-container justify-self-end">
                 <label
                   class="toggle-label select-none cursor-pointer"
                   for="reverse-charge"
