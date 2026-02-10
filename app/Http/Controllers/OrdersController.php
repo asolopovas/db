@@ -366,9 +366,16 @@ class OrdersController extends Controller
         ];
     }
 
-    public function duplicate($id)
+    public function duplicate(Request $request, $id)
     {
-        return DB::transaction(function () use ($id) {
+        return DB::transaction(function () use ($request, $id) {
+            $duplicateMode = $request->input('mode', 'all');
+            $allowedModes = ['all', 'materials_products', 'services_only'];
+
+            if (!in_array($duplicateMode, $allowedModes, true)) {
+                $duplicateMode = 'all';
+            }
+
             $source = Order::with([
                 'products.areas',
                 'orderServices',
@@ -404,50 +411,54 @@ class OrdersController extends Controller
             $order->addStatus(Status::where('name', 'Quote')->firstOrFail());
             $order->save();
 
-            // Clone Products with Areas
-            foreach ($source->products as $product) {
-                $newProduct = Product::create([
-                    'order_id'      => $order->id,
-                    'floor_id'      => $product->floor_id,
-                    'extra_id'      => $product->extra_id,
-                    'dimension_id'  => $product->dimension_id,
-                    'grade_id'      => $product->grade_id,
-                    'wastage_rate'  => $product->wastage_rate,
-                    'discount'      => $product->discount,
-                    'meterage'      => $product->meterage,
-                    'unit_price'    => $product->unit_price,
-                ]);
+            if ($duplicateMode === 'all' || $duplicateMode === 'materials_products') {
+                // Clone Products with Areas
+                foreach ($source->products as $product) {
+                    $newProduct = Product::create([
+                        'order_id'      => $order->id,
+                        'floor_id'      => $product->floor_id,
+                        'extra_id'      => $product->extra_id,
+                        'dimension_id'  => $product->dimension_id,
+                        'grade_id'      => $product->grade_id,
+                        'wastage_rate'  => $product->wastage_rate,
+                        'discount'      => $product->discount,
+                        'meterage'      => $product->meterage,
+                        'unit_price'    => $product->unit_price,
+                    ]);
 
-                foreach ($product->areas as $area) {
-                    ProductArea::create([
-                        'area_id'    => $area->area_id,
-                        'product_id' => $newProduct->id,
-                        'name'       => $area->name,
-                        'meterage'   => $area->meterage,
+                    foreach ($product->areas as $area) {
+                        ProductArea::create([
+                            'area_id'    => $area->area_id,
+                            'product_id' => $newProduct->id,
+                            'name'       => $area->name,
+                            'meterage'   => $area->meterage,
+                        ]);
+                    }
+                }
+
+                // Clone Materials
+                foreach ($source->orderMaterials as $material) {
+                    OrderMaterial::create([
+                        'order_id'   => $order->id,
+                        'material_id' => $material->material_id,
+                        'name'       => $material->name,
+                        'unit_price' => $material->unit_price,
+                        'quantity'   => $material->quantity,
                     ]);
                 }
             }
 
-            // Clone Services
-            foreach ($source->orderServices as $service) {
-                OrderService::create([
-                    'order_id'   => $order->id,
-                    'service_id' => $service->service_id,
-                    'name'       => $service->name,
-                    'unit_price' => $service->unit_price,
-                    'quantity'   => $service->quantity,
-                ]);
-            }
-
-            // Clone Materials
-            foreach ($source->orderMaterials as $material) {
-                OrderMaterial::create([
-                    'order_id'   => $order->id,
-                    'material_id' => $material->material_id,
-                    'name'       => $material->name,
-                    'unit_price' => $material->unit_price,
-                    'quantity'   => $material->quantity,
-                ]);
+            if ($duplicateMode === 'all' || $duplicateMode === 'services_only') {
+                // Clone Services
+                foreach ($source->orderServices as $service) {
+                    OrderService::create([
+                        'order_id'   => $order->id,
+                        'service_id' => $service->service_id,
+                        'name'       => $service->name,
+                        'unit_price' => $service->unit_price,
+                        'quantity'   => $service->quantity,
+                    ]);
+                }
             }
 
             // Recalculate sums
