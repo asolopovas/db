@@ -39,7 +39,7 @@
                     {{ $order->project->postcode }}
                 @else
                     {{ $address->address_line_1 }}<br>
-                    {{ $address->city ?? 'London, ' }}{{ $address->town }}<br>
+                    {{ implode(', ', array_filter([$address->city ?? 'London', $address->town])) }}<br>
                     {{ $address->country }}<br>
                     {{ $address->postcode }}
                 @endif
