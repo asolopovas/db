@@ -193,7 +193,7 @@
             >
               Message Actions
             </p>
-            <div class="messages-controls grid grid-cols-4 gap-2">
+            <div class="messages-controls grid grid-cols-3 gap-2">
               <base-button
                 class="btn-action bg-sky-600 text-white"
                 @click="() => (mailBox = true)"
@@ -212,7 +212,9 @@
               >
                 Payment Terms
               </base-button>
-              <div class="toggle-container justify-self-end">
+            </div>
+            <div class="flex gap-4 justify-end mt-2">
+              <div class="toggle-container">
                 <label
                   class="toggle-label select-none cursor-pointer"
                   for="new-build"
@@ -224,7 +226,7 @@
                   v-model="newBuild"
                 /><label for="new-build" class="switch cursor-pointer"></label>
               </div>
-              <div class="toggle-container justify-self-end">
+              <div class="toggle-container">
                 <label
                   class="toggle-label select-none cursor-pointer"
                   for="reverse-charge"

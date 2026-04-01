@@ -18,8 +18,10 @@
 @php
 $vat_title = "VAT ({$vat}%)";
 
-if($vat == 0 && !$order->reverse_charge) {
-    $vat_title = "Zero-rate New Build VAT (0%):";
+if ($vat == 0 && !$order->reverse_charge) {
+    $vat_title = $order->new_build
+        ? "Zero-rate New Build VAT (0%):"
+        : "Zero-rate VAT (0%):";
 }
 
 if ($order->reverse_charge) {
