@@ -215,6 +215,18 @@
               <div class="toggle-container justify-self-end">
                 <label
                   class="toggle-label select-none cursor-pointer"
+                  for="new-build"
+                  >New Build</label
+                ><input
+                  id="new-build"
+                  type="checkbox"
+                  class="checkbox"
+                  v-model="newBuild"
+                /><label for="new-build" class="switch cursor-pointer"></label>
+              </div>
+              <div class="toggle-container justify-self-end">
+                <label
+                  class="toggle-label select-none cursor-pointer"
                   for="reverse-charge"
                   >Reverse Charge</label
                 ><input
@@ -376,6 +388,13 @@ const reverseCharge = computed({
   get: () => store.state.order.reverse_charge,
   set: (value) => {
     store.commit("setOrderStats", { value, loc: "reverse_charge" });
+    save(false);
+  },
+});
+const newBuild = computed({
+  get: () => store.state.order.new_build,
+  set: (value) => {
+    store.commit("setOrderStats", { value, loc: "new_build" });
     save(false);
   },
 });

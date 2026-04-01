@@ -42,6 +42,7 @@ class OrderFactory extends Factory
             'proforma_message'   => $this->faker->paragraph(6),
             'proforma_breakdown' => $this->faker->boolean,
             'reverse_charge' => $this->faker->boolean,
+            'new_build' => $this->faker->boolean,
             'payment_terms'      => "50% Deposit, 25% prior to Delivery, 25% on Completion",
             'payment_date'  => null,
         ];

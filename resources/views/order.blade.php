@@ -88,7 +88,7 @@
                     <p><b>Customer to account to HMRC for the Reverse Charge output tax on the VAT exclusive price of items marked "Reverse Charge".</b></p>
 
                 @endif
-                @if($order->vat == 0 && !$order->reverse_charge)
+                @if($order->new_build)
                     <p>Supply of engineered wood flooring qualifying for New Build property zero-rated under VAT Notice 708 Buildings and construction</p>
                 @endif
                     <br>

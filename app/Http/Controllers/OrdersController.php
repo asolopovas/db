@@ -412,6 +412,7 @@ class OrdersController extends Controller
                 $order->proforma = $source->proforma;
                 $order->proforma_breakdown = $source->proforma_breakdown;
                 $order->reverse_charge = $source->reverse_charge;
+                $order->new_build = $source->new_build;
                 $order->vat = $source->vat;
                 $order->due = $source->due;
                 $order->due_amount = $source->due_amount;
