@@ -28,6 +28,10 @@ if ($order->reverse_charge) {
     $vat_title = "VAT Reverse Charge (20%):";
 }
 
+$discount_percent = $totalPrice > 0
+    ? round($discount / $totalPrice * 100, 2)
+    : 0;
+
 @endphp
 
 @includeWhen($tax_deductions->isNotEmpty(), 'partials.tax-deductions')
@@ -57,7 +61,7 @@ if ($order->reverse_charge) {
             ])
             @if ($discount)
                 @include('partials.order-sums', [
-                    'title' => 'Discount:',
+                    'title' => 'Discount (' . number_format($discount_percent, 2) . '%)' . ':',
                     'value' => $discount,
                 ])
                 @include('partials.order-sums', [

@@ -87,6 +87,25 @@ function resetEl<K extends keyof OrderState>(
     }
 }
 
+function getSubtotal(state: OrderState): number {
+    const materialsTotal = sum(state.order_materials || [], 'price')
+    const servicesTotal = sum(state.order_services || [], 'price')
+    const productsTotal = sum(state.products || [], 'discountedPrice')
+    return Number((materialsTotal + servicesTotal + productsTotal).toFixed(2))
+}
+
+function syncDiscountPercent(state: OrderState): void {
+    const subtotal = getSubtotal(state)
+    state.discount_percent = subtotal > 0
+        ? Number(((state.discount || 0) / subtotal * 100).toFixed(2))
+        : 0
+}
+
+function syncDiscountAmount(state: OrderState): void {
+    const subtotal = getSubtotal(state)
+    state.discount = Number((subtotal * (state.discount_percent || 0) / 100).toFixed(2))
+}
+
 function setOrderStats<K extends keyof OrderState>(
     state: OrderState,
     { loc, value }: OrderPayload<OrderState>
@@ -95,17 +114,20 @@ function setOrderStats<K extends keyof OrderState>(
         state[loc] = value as OrderState[K]
     }
     if (loc === 'discount') {
+        syncDiscountPercent(state)
+        updateOrderPrice(state)
+        updateBalance(state)
+    }
+    if (loc === 'discount_percent') {
+        syncDiscountAmount(state)
         updateOrderPrice(state)
         updateBalance(state)
     }
 }
 
 function updateOrderPrice(state: OrderState): void {
-    const materialsTotal = sum(state.order_materials || [], 'price')
-    const servicesTotal = sum(state.order_services || [], 'price')
-    const productsTotal = sum(state.products || [], 'discountedPrice')
-    state.total = (materialsTotal + servicesTotal + productsTotal) - (state.discount || 0)
-    state.total = Number(state.total.toFixed(2))
+    const subtotal = getSubtotal(state)
+    state.total = Number((subtotal - (state.discount || 0)).toFixed(2))
     state.grand_total = state.total * (1 + (state.vat || 0) / 100)
 }
 
@@ -125,6 +147,7 @@ function assignOrderItem(state: OrderState, order: Partial<OrderState>): void {
             state[key] = order[key]
         }
     }
+    syncDiscountPercent(state)
 }
 
 function setDeductionItem<K extends keyof TaxDeduction>(
@@ -154,6 +177,9 @@ function setExpenseItem<K extends keyof Expense>(
 }
 
 export {
+    getSubtotal,
+    syncDiscountPercent,
+    syncDiscountAmount,
     updateBalance,
     setOrderStats,
     setExpenseItem,

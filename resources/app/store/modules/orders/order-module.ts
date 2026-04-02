@@ -24,6 +24,7 @@ const state: OrderState = {
   customer_id: undefined,
   date_due: undefined,
   discount: undefined,
+  discount_percent: 0,
   due: undefined,
   due_amount: undefined,
   expenses: [],

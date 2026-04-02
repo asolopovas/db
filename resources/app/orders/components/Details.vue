@@ -134,12 +134,12 @@
           </div>
           <!-- Order  Inputs  -->
           <div
-            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 mb-3 w-full"
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-3 w-full"
           >
             <template v-for="(value, key) in orderInputs.items">
               <component
                 class="w-full lg:w-auto"
-                :label="key"
+                :label="value.label || key"
                 :is="value.type"
                 :set="orderInputs.setter"
                 :format="value.format"
@@ -364,7 +364,8 @@ const orderInputs = ref<StoreUpdater>({
       format: (item: any) => filters.dateFormat(item, "yyyy-MM-dd"),
     },
     vat: { type: "input-field" },
-    discount: { type: "input-field" },
+    discount_percent: { type: "input-field", label: "Discount %" },
+    discount: { type: "input-field", label: "Discount \u00a3" },
     due: { type: "input-field" },
     due_amount: { type: "input-field" },
   },

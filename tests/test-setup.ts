@@ -1,13 +1,15 @@
 import { vi } from 'vitest'
-import { createCanvas } from 'canvas'
 
-// Mock `HTMLCanvasElement.getContext` for Chart.js
-global.HTMLCanvasElement.prototype.getContext = vi.fn((type) => {
-    if (type === '2d') {
-        return createCanvas(200, 200).getContext('2d')
-    }
-    return null
-})
+// Mock `HTMLCanvasElement.getContext` for Chart.js (only in jsdom environment)
+if (typeof HTMLCanvasElement !== 'undefined') {
+    const { createCanvas } = await import('canvas')
+    global.HTMLCanvasElement.prototype.getContext = vi.fn((type) => {
+        if (type === '2d') {
+            return createCanvas(200, 200).getContext('2d')
+        }
+        return null
+    })
+}
 
 // Mock `vue-chartjs` to prevent rendering issues in tests
 vi.mock('vue-chartjs', () => ({

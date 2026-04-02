@@ -172,6 +172,7 @@ declare global {
     customer_id?: number;
     date_due?: string;
     discount?: number;
+    discount_percent?: number;
     due?: number;
     due_amount?: number;
     expense?: Expense;
