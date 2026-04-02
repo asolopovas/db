@@ -15,7 +15,7 @@ function getSubtotal(state: any): number {
 function syncDiscountPercent(state: any): void {
     const subtotal = getSubtotal(state)
     state.discount_percent = subtotal > 0
-        ? Number(((state.discount || 0) / subtotal * 100).toFixed(2))
+        ? Number(((state.discount || 0) / subtotal * 100).toFixed(4))
         : 0
 }
 
@@ -112,10 +112,10 @@ describe('Discount Interlink', () => {
             expect(state.discount_percent).toBe(10)
         })
 
-        it('handles fractional percentages with 2dp rounding', () => {
+        it('stores higher precision for accurate round-trips', () => {
             const state = createStateWithSubtotal(3000, { discount: 100 })
             syncDiscountPercent(state)
-            expect(state.discount_percent).toBe(3.33)
+            expect(state.discount_percent).toBe(3.3333)
         })
 
         it('sets 0 when subtotal is 0', () => {
@@ -242,6 +242,20 @@ describe('Discount Interlink', () => {
             state.discount_percent = 0
             setOrderStats(state, { loc: 'discount', value: amount })
             expect(state.discount_percent).toBe(12.5)
+        })
+
+        it('non-round subtotal round-trips accurately', () => {
+            // Simulates the user scenario: subtotal ~9250.69
+            const state = createStateWithSubtotal(9250.69)
+
+            // Set 2000 in currency
+            setOrderStats(state, { loc: 'discount', value: 2000 })
+            const percent = state.discount_percent
+
+            // Now set that percent back — should get 2000 again
+            state.discount = 0
+            setOrderStats(state, { loc: 'discount_percent', value: percent })
+            expect(state.discount).toBe(2000)
         })
     })
 })
