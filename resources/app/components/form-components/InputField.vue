@@ -4,7 +4,7 @@
             v-if="labelOn"
             class="input-label inline-block font-semibold mb-1"
         >
-            {{ startCase(label) }}
+            {{ /[()%£$€]/.test(label) ? label : startCase(label) }}
         </label>
         <div class="input-field-wrap">
             <input
