@@ -14,6 +14,7 @@ public/css/**
 public/js
 public/.htaccess
 public/.htaccess*
+public/build/
 public/hot
 public/php.ini
 public/.user.ini
