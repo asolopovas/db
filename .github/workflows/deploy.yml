@@ -1,0 +1,89 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-db-3oak
+      cancel-in-progress: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect change type
+        id: changes
+        run: |
+          if [[ "${{ github.event_name }}" != "push" ]]; then
+            echo "needs_build=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- '.')
+          if echo "$CHANGED" | grep -qE '\.(ts|tsx|js|jsx|scss|css|vue|svelte)$|^package\.json$|^bun\.lockb$|^pnpm-lock\.yaml$|^package-lock\.json$|^vite\.config\.|^tailwind\.config\.|^postcss\.config\.'; then
+            echo "needs_build=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_build=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DB_SECRET }}
+
+      - name: Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 8987 ht.lyntouch.com >> ~/.ssh/known_hosts
+
+      - name: Deploy with build
+        if: steps.changes.outputs.needs_build == 'true'
+        run: |
+          ssh -o StrictHostKeyChecking=yes -p 8987 "threeoakwood@ht.lyntouch.com" bash -s <<'EOF'
+          set -euo pipefail
+          cd /var/www/vhosts/3oak.co.uk/db.3oak.co.uk
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          composer install --no-interaction --prefer-dist
+          if command -v bun >/dev/null 2>&1; then
+            bun install
+            bun run prod
+          elif command -v pnpm >/dev/null 2>&1; then
+            pnpm install
+            pnpm prod
+          elif command -v npm >/dev/null 2>&1; then
+            npm install
+            npm run prod
+          else
+            echo "No supported JavaScript package manager found"
+            exit 1
+          fi
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+          EOF
+
+      - name: Deploy PHP only
+        if: steps.changes.outputs.needs_build == 'false'
+        run: |
+          ssh -o StrictHostKeyChecking=yes -p 8987 "threeoakwood@ht.lyntouch.com" bash -s <<'EOF'
+          set -euo pipefail
+          cd /var/www/vhosts/3oak.co.uk/db.3oak.co.uk
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          composer install --no-interaction --prefer-dist
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+          EOF
