@@ -110,8 +110,8 @@ class SettingsController extends CrudController
             }
         }
 
-        $data['algolia_app_id'] = env('ALGOLIA_APP_ID');
-        $data['algolia_secret'] = env('ALGOLIA_SEARCH_ONLY');
+        $data['algolia_app_id'] = config('scout.algolia.id');
+        $data['algolia_secret'] = config('scout.algolia.search_only');
 
         return $data;
     }
